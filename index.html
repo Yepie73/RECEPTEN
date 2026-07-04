@@ -1,0 +1,1861 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Receptenbibliotheek GZ</title>
+<style>
+  :root {
+    --bg: #F5EFE7;
+    --card: #FFFDF9;
+    --ink: #061A1C;
+    --muted: #7D8A89;
+    --accent: #C89B5E;
+    --accent-dark: #A8752D;
+    --accent-soft: rgba(200,155,94,.15);
+    --primary: #063A35;
+    --green: #2D8B5F;
+    --green-bg: rgba(45,139,95,.12);
+    --line: rgba(6,58,53,0.10);
+    --shadow: 0 1px 3px rgba(6,58,53,0.06), 0 4px 12px rgba(6,58,53,0.05);
+    /* elevatie-systeem, gelaagde schaduwen voor diepte */
+    --elev-1: 0 1px 2px rgba(6,26,28,0.06), 0 3px 8px rgba(6,58,53,0.06);
+    --elev-2: 0 2px 4px rgba(6,26,28,0.06), 0 8px 20px rgba(6,58,53,0.10), inset 0 1px 0 rgba(255,255,255,0.75);
+    --elev-3: 0 8px 18px rgba(6,26,28,0.10), 0 22px 44px rgba(6,58,53,0.18), inset 0 1px 0 rgba(255,255,255,0.85);
+    --elev-4: 0 20px 40px rgba(6,26,28,0.16), 0 40px 80px rgba(6,58,53,0.24);
+    --card-surface: linear-gradient(155deg, #FFFFFF 0%, #FDF9F2 55%, #F8F1E6 100%);
+    --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Inter', -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background:
+      radial-gradient(1200px 600px at 15% -10%, rgba(200,155,94,0.14), transparent 60%),
+      radial-gradient(1000px 700px at 100% 0%, rgba(6,58,53,0.10), transparent 55%),
+      var(--bg);
+    background-attachment: fixed;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+  header {
+    position: relative;
+    overflow: hidden;
+    perspective: 1000px;
+    background:
+      radial-gradient(700px 300px at 12% -40%, rgba(200,155,94,0.30), transparent 60%),
+      linear-gradient(165deg, #0a4f48 0%, #063A35 55%, #052b27 100%);
+    color: #F8F7F4;
+    box-shadow: 0 10px 30px rgba(6,58,53,0.28), inset 0 1px 0 rgba(255,255,255,0.10);
+    border-bottom: 1px solid rgba(200,155,94,0.25);
+  }
+  header::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; z-index: 3;
+    background: linear-gradient(90deg, transparent, rgba(200,155,94,0.6), transparent);
+  }
+  header::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+    background: linear-gradient(115deg, transparent 34%, rgba(255,255,255,0.10) 46%, rgba(200,155,94,0.22) 50%, rgba(255,255,255,0.10) 54%, transparent 66%);
+    background-size: 260% 100%;
+    animation: sheen 8s ease-in-out infinite;
+  }
+  @keyframes sheen {
+    0% { background-position: 135% 0; }
+    100% { background-position: -35% 0; }
+  }
+  .hdr-stage {
+    position: relative;
+    padding: 46px 24px 42px;
+    transform-style: preserve-3d;
+    transform: rotateX(0deg) rotateY(0deg);
+    transition: transform 0.28s ease-out;
+    will-change: transform;
+  }
+  .hdr-glow {
+    position: absolute; inset: -25%; pointer-events: none;
+    transform: translateZ(18px);
+    background: radial-gradient(340px 240px at 30% 22%, rgba(200,155,94,0.38), transparent 70%);
+  }
+  .hdr-orb { position: absolute; pointer-events: none; }
+  .hdr-orb i { display: block; border-radius: 50%; opacity: 0.6; animation: floaty 7s ease-in-out infinite; }
+  .hdr-orb.o1 { top: -34px; left: 5%; transform: translateZ(-60px); }
+  .hdr-orb.o1 i { width: 155px; height: 155px; filter: blur(7px); background: radial-gradient(circle at 35% 35%, rgba(200,155,94,0.55), rgba(200,155,94,0)); }
+  .hdr-orb.o2 { bottom: -46px; right: 11%; transform: translateZ(75px); }
+  .hdr-orb.o2 i { width: 115px; height: 115px; filter: blur(5px); background: radial-gradient(circle at 35% 35%, rgba(45,139,95,0.50), rgba(45,139,95,0)); animation-delay: -2.2s; }
+  .hdr-orb.o3 { top: 34%; right: 30%; transform: translateZ(28px); }
+  .hdr-orb.o3 i { width: 72px; height: 72px; filter: blur(4px); background: radial-gradient(circle at 35% 35%, rgba(255,255,255,0.28), rgba(255,255,255,0)); animation-delay: -4s; }
+  .hdr-orb.o4 { bottom: 6%; left: 32%; transform: translateZ(-28px); }
+  .hdr-orb.o4 i { width: 95px; height: 95px; filter: blur(6px); background: radial-gradient(circle at 35% 35%, rgba(200,155,94,0.32), rgba(200,155,94,0)); animation-delay: -1.1s; }
+  @keyframes floaty { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-18px); } }
+  header .wrap {
+    position: relative; z-index: 2;
+    max-width: 1100px; margin: 0 auto;
+    transform-style: preserve-3d;
+    transform: translateZ(26px);
+  }
+  .hdr-eyebrow {
+    display: inline-block; margin: 0 0 12px;
+    font-size: 0.7rem; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase;
+    color: var(--accent); padding: 4px 13px; border-radius: 20px;
+    border: 1px solid rgba(200,155,94,0.40); background: rgba(200,155,94,0.10);
+    transform: translateZ(14px);
+  }
+  .hdr-title {
+    margin: 0; font-family: var(--font-display); font-weight: 700;
+    font-size: clamp(2.1rem, 4.6vw, 3rem); letter-spacing: 0.5px; line-height: 1.05;
+    transform: translateZ(36px);
+    text-shadow:
+      0 1px 0 #0a534b, 0 2px 0 #084a43, 0 3px 0 #073f39,
+      0 4px 0 #063733, 0 5px 0 #052f2b, 0 9px 16px rgba(0,0,0,0.45);
+  }
+  .hdr-title .accent {
+    color: var(--accent);
+    text-shadow:
+      0 1px 0 #8a5f28, 0 2px 0 #7a5322, 0 3px 0 #6b481d,
+      0 4px 0 #5c3d18, 0 9px 16px rgba(0,0,0,0.40);
+  }
+  header .wrap p { margin: 12px 0 0; opacity: 0.92; font-size: 0.95rem; transform: translateZ(12px); }
+  .version {
+    font-size: 0.72rem; opacity: 0.95; margin-left: 4px;
+    background: rgba(255,255,255,0.12); padding: 2px 9px; border-radius: 11px;
+  }
+  .controls {
+    position: sticky;
+    top: 12px;
+    z-index: 6;
+    width: min(1100px, calc(100% - 48px));
+    margin: 24px auto 0;
+    padding: 13px 16px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    background: rgba(255,253,249,0.62);
+    backdrop-filter: blur(14px) saturate(1.15);
+    -webkit-backdrop-filter: blur(14px) saturate(1.15);
+    border: 1px solid rgba(255,255,255,0.55);
+    border-radius: 18px;
+    box-shadow: var(--elev-2);
+  }
+  #search {
+    flex: 1 1 240px;
+    min-width: 180px;
+    padding: 10px 14px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    font-size: 0.95rem;
+    background: rgba(255,255,255,0.75);
+    color: var(--ink);
+  }
+  #search:focus { outline: 2px solid var(--accent); outline-offset: 1px; background: #fff; }
+  .filter-group { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip {
+    border: 1px solid var(--line);
+    background: linear-gradient(180deg, #ffffff, #f7f1e8);
+    color: var(--muted);
+    padding: 8px 13px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.15s;
+    user-select: none;
+    box-shadow: var(--elev-1);
+  }
+  .chip:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+  .chip.active { background: linear-gradient(180deg, #d3a869, var(--accent)); color: var(--primary); border-color: var(--accent-dark); font-weight: 600; box-shadow: 0 4px 12px rgba(200,155,94,0.35); }
+  .count { max-width: 1100px; margin: 14px auto 0; padding: 0 24px; color: var(--muted); font-size: 0.85rem; }
+  .grid {
+    max-width: 1100px;
+    margin: 12px auto 60px;
+    padding: 0 24px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 22px;
+    perspective: 1200px;
+  }
+  .card {
+    position: relative;
+    background: linear-gradient(155deg, rgba(255,255,255,0.80) 0%, rgba(253,249,242,0.60) 55%, rgba(248,241,230,0.52) 100%);
+    backdrop-filter: blur(10px) saturate(1.1);
+    -webkit-backdrop-filter: blur(10px) saturate(1.1);
+    border: 1px solid rgba(255,255,255,0.65);
+    border-radius: 16px;
+    padding: 20px;
+    cursor: pointer;
+    box-shadow: var(--elev-2);
+    transition: box-shadow 0.25s ease, transform 0.12s ease;
+    transform-style: preserve-3d;
+    will-change: transform;
+    display: flex;
+    flex-direction: column;
+  }
+  .card::before {
+    content: ""; position: absolute; inset: 0; border-radius: 16px; pointer-events: none;
+    box-shadow: inset 0 0 0 1px rgba(6,58,53,0.06);
+  }
+  .card:hover { box-shadow: var(--elev-3); }
+  .card > * { transform: translateZ(0.01px); }
+  .card-corner { position: absolute; top: 12px; right: 12px; z-index: 4; display: flex; align-items: center; gap: 6px; transform: translateZ(42px); }
+  .card-rating {
+    background: linear-gradient(180deg, #e6c079, var(--accent)); color: var(--primary);
+    font-weight: 700; font-size: 0.8rem; padding: 3px 10px; border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(200,155,94,0.45);
+  }
+  .card-del {
+    width: 26px; height: 26px; border-radius: 50%; border: none;
+    background: rgba(6,26,28,0.12); color: var(--muted); cursor: pointer;
+    font-size: 1.25rem; line-height: 1; display: flex; align-items: center; justify-content: center;
+    opacity: 0.55; transition: opacity 0.15s, background 0.15s, color 0.15s;
+  }
+  .card:hover .card-del { opacity: 1; }
+  .card-del:hover { background: #b04a3a; color: #fff; }
+  .card h3 { margin: 0 0 6px; padding-right: 58px; font-size: 1.2rem; color: var(--primary); font-family: var(--font-display); font-weight: 600; transform: translateZ(28px); }
+  .card .desc { color: var(--muted); font-size: 0.9rem; flex: 1; transform: translateZ(14px); }
+  .card .meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; transform: translateZ(20px); }
+  .tag {
+    font-size: 0.72rem;
+    padding: 3px 9px;
+    border-radius: 12px;
+    background: var(--accent-soft);
+    color: var(--accent-dark);
+  }
+  .tag.time { background: var(--green-bg); color: var(--green); }
+  .tag.garden { background: var(--green-bg); color: var(--green); }
+  .tag.meal { background: rgba(6,58,53,0.08); color: var(--primary); text-transform: capitalize; }
+  .tag.rate { background: linear-gradient(180deg, #e6c079, var(--accent)); color: var(--primary); font-weight: 700; }
+  .tag.cooked { background: rgba(6,58,53,0.08); color: var(--primary); }
+  .empty { max-width: 1100px; margin: 40px auto; padding: 0 24px; color: var(--muted); text-align: center; }
+  /* modal */
+  .overlay {
+    position: fixed; inset: 0;
+    background: rgba(40,30,20,0.55);
+    display: none;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 30px 16px;
+    overflow-y: auto;
+    z-index: 10;
+  }
+  .overlay { backdrop-filter: blur(3px); }
+  .overlay.open { display: flex; }
+  .modal {
+    background: linear-gradient(155deg, rgba(255,255,255,0.92) 0%, rgba(251,246,238,0.82) 60%, rgba(247,240,229,0.80) 100%);
+    backdrop-filter: blur(22px) saturate(1.2);
+    -webkit-backdrop-filter: blur(22px) saturate(1.2);
+    border-radius: 20px;
+    max-width: 640px;
+    width: 100%;
+    padding: 30px 32px 36px;
+    position: relative;
+    border: 1px solid rgba(255,255,255,0.7);
+    box-shadow: var(--elev-4), inset 0 1px 0 rgba(255,255,255,0.8);
+    animation: modalIn 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  @keyframes modalIn {
+    from { opacity: 0; transform: translateY(24px) scale(0.96); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  .modal h2 { margin: 0 0 4px; color: var(--primary); font-size: 1.6rem; font-family: var(--font-display); font-weight: 700; }
+  .modal .sub { color: var(--muted); margin: 0 0 16px; }
+  .modal .facts { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+  .modal h4 {
+    margin: 22px 0 10px; font-size: 0.82rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1.5px; color: var(--accent-dark);
+    display: flex; align-items: center; gap: 12px;
+  }
+  .modal h4::before {
+    content: ""; width: 7px; height: 7px; border-radius: 50%; flex: 0 0 auto;
+    background: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+  .modal h4::after {
+    content: ""; flex: 1; height: 1px;
+    background: linear-gradient(90deg, rgba(200,155,94,0.55), transparent);
+  }
+  .modal ul, .modal ol { margin: 0; padding-left: 22px; }
+  .modal li { margin-bottom: 5px; }
+  .close {
+    position: absolute; top: 14px; right: 16px;
+    border: none; background: var(--accent-soft); color: var(--accent);
+    width: 34px; height: 34px; border-radius: 50%;
+    font-size: 1.2rem; cursor: pointer; line-height: 1;
+  }
+  .close:hover { background: var(--accent); color: #fff; }
+  .src { margin-top: 22px; font-size: 0.82rem; color: var(--muted); border-top: 1px solid var(--line); padding-top: 12px; }
+  .src a { color: var(--accent); }
+  .src-link {
+    display: inline-block; color: var(--accent-dark); font-weight: 600; font-size: 0.9rem;
+    text-decoration: none; border: 1px solid var(--accent); background: var(--accent-soft);
+    padding: 7px 13px; border-radius: 9px; margin-bottom: 6px;
+  }
+  .src-link:hover { background: var(--accent); color: #fff; }
+  .src-file { color: var(--muted); }
+  .garden-note { background: var(--green-bg); color: var(--green); padding: 8px 12px; border-radius: 8px; font-size: 0.85rem; margin-bottom: 8px; }
+  footer { text-align: center; color: var(--muted); font-size: 0.8rem; padding: 20px 20px 90px; }
+
+  /* clickable ingredients in modal */
+  .ing-hint { font-size: 0.82rem; color: var(--muted); margin: 0 0 8px; }
+  .ing-list { list-style: none; margin: 0; padding: 0; }
+  .ing-list .ing-head { font-weight: 600; color: var(--primary); margin: 12px 0 4px; font-size: 0.95rem; }
+  .ing-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 7px 10px; margin: 2px 0;
+    border: 1px solid var(--line); border-radius: 9px;
+    background: #fff; cursor: pointer;
+    transition: background 0.12s, border-color 0.12s;
+    font-size: 0.93rem;
+  }
+  .ing-item:hover { border-color: var(--accent); }
+  .ing-item .box {
+    flex: 0 0 auto; width: 20px; height: 20px; border-radius: 6px;
+    border: 1.6px solid var(--accent); display: flex; align-items: center; justify-content: center;
+    font-size: 0.8rem; color: #fff; line-height: 1;
+  }
+  .ing-item.added { background: var(--green-bg); border-color: var(--green); }
+  .ing-item.added .box { background: var(--green); border-color: var(--green); }
+  .ing-item.added .txt { color: var(--green); }
+  .add-all {
+    border: 1px solid var(--accent); background: var(--accent-soft); color: var(--accent-dark);
+    padding: 8px 14px; border-radius: 9px; cursor: pointer; font-size: 0.85rem; font-weight: 600;
+    margin-top: 12px;
+  }
+  .add-all:hover { background: var(--accent); color: #fff; }
+
+  /* floating basket button */
+  .cart-fab {
+    position: fixed; right: 22px; bottom: 22px; z-index: 20;
+    background: linear-gradient(165deg, #0a4f48, #063A35 60%, #04302b);
+    color: #F8F7F4;
+    border: 1px solid rgba(200,155,94,0.35); border-radius: 32px; padding: 14px 22px;
+    font-size: 0.95rem; font-weight: 600; cursor: pointer;
+    box-shadow: 0 10px 24px rgba(6,58,53,0.38), 0 2px 6px rgba(6,58,53,0.30), inset 0 1px 0 rgba(255,255,255,0.15);
+    display: flex; align-items: center; gap: 9px;
+    transition: transform 0.14s ease, box-shadow 0.2s ease;
+  }
+  .cart-fab:hover { transform: translateY(-2px); box-shadow: 0 16px 34px rgba(6,58,53,0.44), 0 3px 8px rgba(6,58,53,0.30), inset 0 1px 0 rgba(255,255,255,0.18); }
+  .cart-fab:active { transform: translateY(0); }
+  .cart-fab .badge {
+    background: linear-gradient(180deg, #d3a869, var(--accent)); color: var(--primary);
+    border-radius: 12px; min-width: 22px; height: 22px; padding: 0 6px;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 0.8rem; font-weight: 700;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.20), inset 0 1px 0 rgba(255,255,255,0.4);
+  }
+
+  /* shopping drawer */
+  .drawer-overlay {
+    position: fixed; inset: 0; background: rgba(40,30,20,0.45);
+    display: none; z-index: 25;
+  }
+  .drawer-overlay.open { display: block; }
+  .drawer {
+    position: fixed; top: 0; right: 0; height: 100%;
+    width: min(400px, 92vw);
+    background: rgba(255,253,249,0.82);
+    backdrop-filter: blur(20px) saturate(1.15);
+    -webkit-backdrop-filter: blur(20px) saturate(1.15);
+    border-left: 1px solid rgba(255,255,255,0.6);
+    box-shadow: -18px 0 50px rgba(6,58,53,0.28);
+    transform: translateX(100%); transition: transform 0.22s ease;
+    display: flex; flex-direction: column; z-index: 26;
+  }
+  .drawer.open { transform: translateX(0); }
+  .drawer-head {
+    background: var(--primary); color: #F8F7F4;
+    padding: 20px 22px; display: flex; align-items: center; justify-content: space-between;
+  }
+  .drawer-head h2 { margin: 0; font-family: var(--font-display); font-size: 1.35rem; }
+  .drawer-head .x { background: rgba(255,255,255,0.15); border: none; color: #fff; width: 32px; height: 32px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; }
+  .drawer-head .x:hover { background: rgba(255,255,255,0.28); }
+  .drawer-body { flex: 1; overflow-y: auto; padding: 16px 20px; }
+  .drawer-empty { color: var(--muted); text-align: center; margin-top: 40px; font-size: 0.9rem; }
+  .cart-group { font-family: var(--font-display); color: var(--primary); font-size: 1rem; margin: 16px 0 6px; }
+  .cart-group:first-child { margin-top: 0; }
+  .cart-line {
+    display: flex; align-items: center; gap: 10px;
+    padding: 6px 0; border-bottom: 1px solid var(--line);
+  }
+  .cart-line input { width: 18px; height: 18px; accent-color: var(--green); cursor: pointer; flex: 0 0 auto; }
+  .cart-line .ct { flex: 1; font-size: 0.92rem; }
+  .cart-line.done .ct { text-decoration: line-through; color: var(--muted); }
+  .cart-line .rm { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 1.1rem; line-height: 1; padding: 0 2px; }
+  .cart-line .rm:hover { color: var(--accent-dark); }
+  .drawer-foot { padding: 14px 20px; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 9px; }
+  .btn { border: none; border-radius: 10px; padding: 12px 16px; font-size: 0.92rem; font-weight: 600; cursor: pointer; text-align: center; text-decoration: none; }
+  .btn-wa { background: var(--green); color: #fff; }
+  .btn-wa:hover { background: #25774f; }
+  .btn-print { background: rgba(6,58,53,0.07); color: var(--primary); border: 1px solid rgba(6,58,53,0.18); }
+  .btn-print:hover { background: var(--primary); color: #F8F7F4; }
+  .btn-copy { background: var(--accent-soft); color: var(--accent-dark); border: 1px solid var(--accent); }
+  .btn-copy:hover { background: var(--accent); color: #fff; }
+  .btn-clear { background: none; color: var(--muted); font-weight: 500; }
+  .btn-clear:hover { color: var(--accent-dark); }
+
+  /* eigen recept: knop, label, foto, verwijderen */
+  .add-recipe-btn {
+    border: 1px solid var(--accent-dark); background: linear-gradient(180deg, #d3a869, var(--accent));
+    color: var(--primary); font-weight: 600; font-size: 0.85rem;
+    padding: 8px 14px; border-radius: 20px; cursor: pointer; box-shadow: var(--elev-1);
+    transition: transform 0.14s ease, filter 0.15s ease;
+  }
+  .add-recipe-btn:hover { transform: translateY(-1px); filter: brightness(1.05); }
+  .tag.eigen { background: var(--accent); color: var(--primary); }
+  .modal-img { width: 100%; max-height: 300px; object-fit: cover; border-radius: 12px; margin: 4px 0 12px; }
+  .del-btn {
+    margin-top: 10px; background: none; border: 1px solid rgba(176,74,58,0.5);
+    color: #b04a3a; border-radius: 8px; padding: 7px 12px; cursor: pointer; font-size: 0.82rem;
+  }
+  .del-btn:hover { background: #b04a3a; color: #fff; }
+
+  /* beoordeling & aantal keer gemaakt */
+  .rate-block {
+    background: rgba(6,58,53,0.035); border: 1px solid var(--line);
+    border-radius: 12px; padding: 14px 16px; margin-bottom: 4px;
+  }
+  .rate-line { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .rate-line + .rate-line { margin-top: 14px; }
+  .rate-line-col { flex-direction: column; align-items: stretch; gap: 9px; }
+  .rate-line-label { font-size: 0.9rem; color: var(--ink); }
+  .rate-val { color: var(--accent-dark); }
+  .stepper {
+    display: inline-flex; align-items: center; background: #fff;
+    border: 1px solid var(--line); border-radius: 10px; overflow: hidden; flex: 0 0 auto;
+  }
+  .step-btn {
+    width: 38px; height: 34px; border: none; background: var(--green-bg); color: var(--green);
+    font-size: 1.2rem; font-weight: 700; cursor: pointer; line-height: 1;
+  }
+  .step-btn:hover { background: var(--green); color: #fff; }
+  .step-val { min-width: 42px; text-align: center; font-weight: 700; font-size: 1rem; color: var(--primary); }
+  .rate-scale {
+    display: flex; width: 100%; background: #fff;
+    border: 1px solid var(--line); border-radius: 10px; overflow: hidden;
+  }
+  .rate-num {
+    flex: 1; height: 36px; border: none; border-right: 1px solid var(--line);
+    background: transparent; color: var(--muted); font-size: 0.85rem; font-weight: 600;
+    cursor: pointer; transition: background 0.12s, color 0.12s;
+  }
+  .rate-num:last-child { border-right: none; }
+  .rate-num:hover { background: var(--accent-soft); color: var(--accent-dark); }
+  .rate-num.active { background: linear-gradient(180deg, #e6c079, var(--accent)); color: var(--primary); }
+  .restore-btn {
+    border: 1px dashed var(--muted); background: none; color: var(--muted);
+    padding: 8px 12px; border-radius: 18px; cursor: pointer; font-size: 0.8rem;
+  }
+  .restore-btn:hover { border-color: var(--accent); color: var(--accent-dark); }
+
+  /* eigen-recept formulier */
+  .form-overlay {
+    position: fixed; inset: 0; background: rgba(40,30,20,0.55); backdrop-filter: blur(3px);
+    display: none; align-items: flex-start; justify-content: center;
+    padding: 24px 16px; overflow-y: auto; z-index: 30;
+  }
+  .form-overlay.open { display: flex; }
+  .form-sheet {
+    position: relative; background: var(--card-surface); border-radius: 16px;
+    max-width: 560px; width: 100%; padding: 26px 28px 30px; box-shadow: var(--elev-4);
+    border: 1px solid rgba(255,255,255,0.6);
+  }
+  .form-sheet h2 { margin: 0 0 4px; font-family: var(--font-display); color: var(--primary); font-size: 1.5rem; }
+  .form-note { color: var(--muted); font-size: 0.85rem; margin: 0 0 16px; }
+  .f-label { display: block; margin: 0 0 12px; font-size: 0.85rem; font-weight: 600; color: var(--primary); }
+  .f-hint { font-weight: 400; color: var(--muted); }
+  .f-label input[type=text], .f-label input[type=number], .f-label select, .f-label textarea {
+    display: block; width: 100%; margin-top: 5px; padding: 9px 11px;
+    border: 1px solid var(--line); border-radius: 9px; font-size: 0.92rem;
+    font-family: inherit; background: #fff; color: var(--ink);
+  }
+  .f-label textarea { resize: vertical; }
+  .form-row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .form-row .f-label { flex: 1 1 120px; }
+  .f-preview img { max-width: 100%; max-height: 200px; border-radius: 10px; margin-top: 6px; }
+  .form-actions { display: flex; gap: 8px; margin-top: 8px; }
+  .form-actions .btn { flex: 1 1 auto; }
+
+  /* print-voorbeeld overlay */
+  .print-overlay {
+    position: fixed; inset: 0; background: rgba(40,30,20,0.55);
+    backdrop-filter: blur(3px); display: none;
+    align-items: flex-start; justify-content: center;
+    padding: 24px 16px; overflow-y: auto; z-index: 30;
+  }
+  .print-overlay.open { display: flex; }
+  .print-sheet {
+    background: #fff; border-radius: 14px; max-width: 600px; width: 100%;
+    padding: 20px 24px 26px; box-shadow: var(--elev-4);
+  }
+  .print-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+  .print-actions .btn { flex: 1 1 auto; }
+  .print-hint { font-size: 0.82rem; color: var(--muted); background: var(--accent-soft); border-radius: 9px; padding: 9px 12px; margin: 0 0 16px; }
+  .print-hint b { color: var(--accent-dark); }
+  .print-content h1 { font-family: var(--font-display); color: var(--primary); font-size: 1.5rem; margin: 0 0 2px; }
+  .print-content .pdate { color: var(--muted); font-size: 0.85rem; margin: 0 0 14px; }
+  .print-content h2 { color: var(--accent-dark); font-size: 1rem; margin: 14px 0 6px; border-bottom: 1px solid var(--line); padding-bottom: 3px; }
+  .print-content ul { list-style: none; padding: 0; margin: 0; }
+  .print-content li { display: flex; align-items: center; gap: 10px; padding: 5px 0; font-size: 0.95rem; color: #111; }
+  .print-content .pbox { width: 15px; height: 15px; border: 1.4px solid #333; border-radius: 3px; display: inline-block; flex: 0 0 auto; }
+  @media print {
+    body * { visibility: hidden; }
+    #printOverlay, #printOverlay * { visibility: visible; }
+    #printOverlay { position: absolute; inset: 0; display: block; background: #fff; padding: 0; }
+    #printOverlay .print-sheet { box-shadow: none; max-width: none; border-radius: 0; }
+    #printOverlay .print-actions, #printOverlay .print-hint { display: none; }
+  }
+
+  .toast {
+    position: fixed; left: 50%; bottom: 30px; transform: translateX(-50%) translateY(20px);
+    background: var(--primary); color: #fff; padding: 11px 20px; border-radius: 24px;
+    font-size: 0.88rem; opacity: 0; pointer-events: none; transition: all 0.25s; z-index: 40;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .toast { box-shadow: 0 10px 30px rgba(6,58,53,0.35); }
+
+  /* rustige, vaste muisaanwijzer: massief gevuld gouden rondje */
+  .cursor-ring { display: none; }
+  @media (hover: hover) and (pointer: fine) {
+    html.cursor-on, html.cursor-on * { cursor: none; }
+    .cursor-ring {
+      display: block; position: fixed; top: 0; left: 0;
+      width: 14px; height: 14px; margin: -7px 0 0 -7px;
+      background: var(--accent); border-radius: 50%;
+      box-shadow: 0 0 0 1px rgba(6,26,28,0.18);
+      pointer-events: none; z-index: 9999; will-change: transform;
+      transition: background 0.15s ease, opacity 0.2s ease;
+    }
+    .cursor-ring.hot { background: var(--accent-dark); }
+  }
+
+  .ing-item { box-shadow: var(--elev-1); }
+  .btn { box-shadow: var(--elev-1); transition: transform 0.12s ease, box-shadow 0.2s ease, background 0.15s; }
+  .btn:hover { transform: translateY(-1px); box-shadow: var(--elev-2); }
+  .btn:active { transform: translateY(0); }
+  .add-all { box-shadow: var(--elev-1); }
+  .drawer-head { box-shadow: 0 6px 18px rgba(6,58,53,0.25); position: relative; z-index: 1; }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+    .card:hover { transform: translateY(-3px); }
+  }
+</style>
+</head>
+<body>
+<header id="siteHeader">
+  <div class="hdr-stage" id="hdrStage">
+    <div class="hdr-glow" id="hdrGlow"></div>
+    <span class="hdr-orb o1"><i></i></span>
+    <span class="hdr-orb o2"><i></i></span>
+    <span class="hdr-orb o3"><i></i></span>
+    <span class="hdr-orb o4"><i></i></span>
+    <div class="wrap">
+      <div class="hdr-eyebrow">Keuken &middot; vegetarisch &amp; vis</div>
+      <h1 class="hdr-title">Recepten<span class="accent">bibliotheek</span></h1>
+      <p>Gezonde gerechten, standaard voor 2 personen. <span class="version">v2.3</span></p>
+    </div>
+  </div>
+</header>
+
+<div class="controls">
+  <input type="text" id="search" placeholder="Zoek op naam of ingredient...">
+  <div class="filter-group" id="cat-filters">
+    <span class="chip active" data-cat="alle">Alle</span>
+    <span class="chip" data-cat="vegetarisch">Vegetarisch</span>
+    <span class="chip" data-cat="vis">Vis</span>
+  </div>
+  <div class="filter-group" id="meal-filters">
+    <span class="chip active" data-meal="alle">Alle maaltijden</span>
+    <span class="chip" data-meal="lunch">Lunch</span>
+    <span class="chip" data-meal="avondeten">Avondeten</span>
+  </div>
+  <div class="filter-group" id="time-filters">
+    <span class="chip active" data-time="0">Alle tijden</span>
+    <span class="chip" data-time="30">&le; 30 min</span>
+    <span class="chip" data-time="45">&le; 45 min</span>
+  </div>
+  <button class="add-recipe-btn" onclick="openRecipeForm()">+ Eigen recept</button>
+  <button class="restore-btn" id="restoreBtn" onclick="restoreHidden()" style="display:none;"></button>
+</div>
+<div class="count" id="count"></div>
+<div class="grid" id="grid"></div>
+<div class="empty" id="empty" style="display:none;">Geen recepten gevonden. Pas je zoekopdracht of filters aan.</div>
+
+<div class="overlay" id="overlay">
+  <div class="modal" id="modal"></div>
+</div>
+
+<button class="cart-fab" id="cartFab" onclick="openDrawer()">
+  🛒 Boodschappen <span class="badge" id="cartBadge">0</span>
+</button>
+
+<div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+<aside class="drawer" id="drawer" aria-label="Boodschappenlijstje">
+  <div class="drawer-head">
+    <h2>Boodschappenlijstje</h2>
+    <button class="x" onclick="closeDrawer()" aria-label="Sluiten">&times;</button>
+  </div>
+  <div class="drawer-body" id="drawerBody"></div>
+  <div class="drawer-foot">
+    <a class="btn btn-wa" id="waBtn" href="#" target="_blank" rel="noopener">Stuur via WhatsApp</a>
+    <button class="btn btn-print" onclick="openPrintOverlay()">Print / bewaar als PDF</button>
+    <button class="btn btn-copy" onclick="copyList()">Kopieer lijstje</button>
+    <button class="btn btn-clear" onclick="clearList()">Lijstje leegmaken</button>
+  </div>
+</aside>
+
+<div class="form-overlay" id="formOverlay">
+  <div class="form-sheet">
+    <button class="close" onclick="closeRecipeForm()" aria-label="Sluiten">&times;</button>
+    <h2>Eigen recept toevoegen</h2>
+    <p class="form-note">Wordt op dit apparaat bewaard (niet gedeeld of gesynct). Heb je een screenshot? Upload die onderaan en typ de gegevens over.</p>
+    <label class="f-label">Titel<input id="f-titel" type="text" placeholder="Bijv. Wortelsoep van oma"></label>
+    <label class="f-label">Korte omschrijving<input id="f-oms" type="text" placeholder="Optioneel"></label>
+    <div class="form-row">
+      <label class="f-label">Soort
+        <select id="f-cat"><option value="vegetarisch">Vegetarisch</option><option value="vis">Vis</option></select>
+      </label>
+      <label class="f-label">Maaltijd
+        <select id="f-meal"><option value="avondeten">Avondeten</option><option value="lunch">Lunch</option></select>
+      </label>
+      <label class="f-label">Tijd (min)<input id="f-tijd" type="number" min="1" value="20"></label>
+    </div>
+    <label class="f-label">Ingrediënten <span class="f-hint">(één per regel)</span><textarea id="f-ing" rows="6" placeholder="1 ui&#10;2 wortels&#10;500 ml bouillon"></textarea></label>
+    <label class="f-label">Bereiding <span class="f-hint">(één stap per regel)</span><textarea id="f-stap" rows="6" placeholder="Snipper de ui&#10;Fruit de ui glazig&#10;..."></textarea></label>
+    <label class="f-label">Bron <span class="f-hint">(optioneel)</span><input id="f-bron" type="text" placeholder="Bijv. kookboek of website"></label>
+    <label class="f-label">Foto / screenshot <span class="f-hint">(optioneel)</span><input id="f-foto" type="file" accept="image/*" onchange="handleFotoUpload(event)"></label>
+    <div id="f-preview" class="f-preview"></div>
+    <div class="form-actions">
+      <button class="btn btn-wa" onclick="saveRecipeForm()">Opslaan</button>
+      <button class="btn btn-clear" onclick="closeRecipeForm()">Annuleren</button>
+    </div>
+  </div>
+</div>
+
+<div class="print-overlay" id="printOverlay">
+  <div class="print-sheet">
+    <div class="print-actions">
+      <button class="btn btn-copy" onclick="copyList()">Kopieer lijstje</button>
+      <button class="btn btn-print" onclick="doPrint()">Printen / PDF</button>
+      <button class="btn btn-clear" onclick="closePrintOverlay()">Sluiten</button>
+    </div>
+    <p class="print-hint">De gedeelde link blokkeert printen/downloaden om veiligheidsredenen. <b>Kopieer</b> het lijstje en plak het in Notities of Word om te printen, of open het losse bestand op je laptop voor direct printen en PDF.</p>
+    <div class="print-content" id="printContent"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+
+<footer>Receptenbibliotheek GZ &middot; v2.3 &middot; recepten met bronvermelding</footer>
+
+<script>
+const recepten = [
+  {
+    id: "mucver",
+    titel: "Mücver, Turkse courgettepannenkoekjes",
+    categorie: "vegetarisch",
+    personen: 2,
+    tijd: 30,
+    seizoen: "zomer",
+    omschrijving: "Turkse gefrituurde courgettepannenkoekjes met dille, geserveerd met een yoghurt-knoflookdip.",
+    tags: ["Turks", "gefrituurd", "mezze"],
+    moestuin: "courgette, dille",
+    ingredienten: [
+      "Voor de pannenkoekjes:",
+      "2 middelgrote courgettes",
+      "2 eieren",
+      "100 g witte kaas (feta), verkruimeld",
+      "3 lente-uitjes, fijngesneden",
+      "1 klein uitje, fijngehakt (optioneel)",
+      "4 el verse dille, gehakt (houd 1 el apart voor de dip)",
+      "2 el verse peterselie, gehakt",
+      "3 tot 4 el bloem",
+      "1 tl bakpoeder",
+      "Zout en peper naar smaak",
+      "Zonnebloemolie om te bakken",
+      "Voor de yoghurt-knoflookdip:",
+      "200 g Griekse of Turkse yoghurt",
+      "1 teen knoflook, geperst",
+      "1 el olijfolie",
+      "Snuf zout en de apart gehouden dille"
+    ],
+    stappen: [
+      "Rasp de courgettes. Knijp het vocht er goed uit met je handen of in een schone theedoek.",
+      "Meng de geraspte courgette met de eieren, kaas, lente-ui, uitje, dille en peterselie.",
+      "Voeg de bloem en het bakpoeder toe en meng tot een samenhangend beslag. Te nat? Voeg nog een lepel bloem toe. Breng op smaak met zout en peper.",
+      "Verhit een laag olie in een koekenpan op middelhoog vuur.",
+      "Schep telkens een lepel beslag in de pan en druk licht plat. Bak 3 tot 4 minuten per kant, tot goudbruin.",
+      "Laat uitlekken op keukenpapier.",
+      "Dip: meng de yoghurt met knoflook, olijfolie, een snuf zout en de apart gehouden dille."
+    ],
+    bestand: "mucver-turkse-courgette-pannenkoekjes.md",
+    bronNaam: "Natuurlijk Turkije, Kabak Mücver",
+    bronUrl: "https://natuurlijkturkije.nl/kabak-mucver-turkse-courgettekoekjes/"
+  },
+  {
+    id: "thaise-groene-curry",
+    titel: "Thaise groene groentecurry",
+    categorie: "vegetarisch",
+    personen: 2,
+    tijd: 25,
+    seizoen: "hele jaar",
+    omschrijving: "Snelle plantaardige curry met knapperige groenten in een romige kokos-currysaus. Geen tomaat, wel veel smaak.",
+    tags: ["Thais", "curry", "vegan", "snel"],
+    moestuin: "seizoensgroenten (paksoi, bosui)",
+    ingredienten: [
+      "½ paksoi",
+      "100 g bimi (of broccoliroosjes)",
+      "½ ui",
+      "1 tot 2 bosui, in ringen",
+      "1 teen knoflook",
+      "Sap van ¼ tot ½ limoen",
+      "35 g groene currypasta",
+      "200 ml kokosmelk",
+      "Rode peper en zout naar smaak",
+      "Wokolie",
+      "Optioneel: verse koriander"
+    ],
+    stappen: [
+      "Snipper de ui en hak de knoflook. Fruit beide in wat wokolie.",
+      "Voeg de bimi toe en roerbak kort. Snijd de paksoi in reepjes, spoel af en bak kort mee.",
+      "Voeg de currypasta toe en verhit kort tot de smaken loskomen. Meer pit? Voeg een beetje extra pasta toe.",
+      "Giet de kokosmelk en het limoensap erbij en laat ongeveer 2 minuten pruttelen. Breng op smaak met rode peper en zout.",
+      "Verdeel over 2 kommen en garneer met bosui en eventueel verse koriander."
+    ],
+    bestand: "thaise-groene-groentecurry.md",
+    bronNaam: "Uit Paulines Keuken, Thaise groene curry",
+    bronUrl: "https://uitpaulineskeuken.nl/recept/thaise-groene-curry"
+  },
+  {
+    id: "kikkererwtencurry",
+    titel: "Kikkererwtencurry met spinazie",
+    categorie: "vegetarisch",
+    personen: 2,
+    tijd: 30,
+    seizoen: "hele jaar",
+    omschrijving: "Romige, plantaardige curry met kikkererwten en verse spinazie in kokosmelk.",
+    tags: ["curry", "vegan", "gezond", "eenpans"],
+    moestuin: "spinazie, verse kruiden",
+    ingredienten: [
+      "100 g kikkererwten (uit blik, uitgelekt; ongeveer een half blik)",
+      "100 g verse bladspinazie",
+      "½ ui",
+      "1 teen knoflook",
+      "¼ rode peper, fijngesneden",
+      "½ limoen",
+      "1 cm gember, geraspt",
+      "½ blikje tomatenpuree",
+      "125 ml kokosmelk",
+      "1 el sojasaus",
+      "1 tl komijn, ½ tl kurkuma, ½ tl kerrie, ½ tl nootmuskaat, ½ tl gerookt paprikapoeder",
+      "Zout naar smaak",
+      "Verse koriander (of peterselie)",
+      "Olie om te bakken"
+    ],
+    stappen: [
+      "Snipper de ui, hak de knoflook, rasp de gember en snijd de rode peper fijn.",
+      "Fruit de ui ongeveer 3 minuten glazig in olie. Voeg knoflook, gember en peper toe en bak kort mee.",
+      "Voeg tomatenpuree, kokosmelk en sojasaus toe.",
+      "Pers de halve limoen erboven uit en voeg alle specerijen toe. Proef en breng op smaak.",
+      "Voeg de uitgelekte kikkererwten toe en laat 15 tot 20 minuten zachtjes stoven.",
+      "Roer de spinazie erdoor en laat slinken.",
+      "Serveer met verse koriander en een partje limoen, eventueel met rijst of naan."
+    ],
+    bestand: "kikkererwtencurry-met-spinazie.md",
+    bronNaam: "Mind Your Feed, Kikkererwten curry met spinazie",
+    bronUrl: "https://www.mindyourfeed.nl/recepten/diner/kikkererwten-curry-met-spinazie/"
+  },
+  {
+    id: "couscous-halloumi",
+    titel: "Parelcouscous met geroosterde groenten en halloumi",
+    categorie: "vegetarisch",
+    personen: 2,
+    tijd: 35,
+    seizoen: "nazomer en herfst",
+    omschrijving: "Geroosterde pompoen, paprika en courgette met spelt-parelcouscous en goudbruine halloumi, met citroen-honingdressing.",
+    tags: ["oosters", "ovenschotel", "halloumi"],
+    moestuin: "courgette",
+    ingredienten: [
+      "150 g parelcouscous (spelt)",
+      "1 pakje halloumi",
+      "½ flespompoen (butternut)",
+      "1 rode paprika",
+      "½ courgette",
+      "2 tenen knoflook",
+      "1 bosje bladpeterselie",
+      "½ biologische citroen",
+      "2 kleine lepels ras-el-hanout",
+      "3 el olijfolie (roosteren en bakken)",
+      "2 el extra vierge olijfolie (dressing)",
+      "2 el honing",
+      "Peper en zout"
+    ],
+    stappen: [
+      "Verwarm de oven op 200 °C. Schil de pompoen, verwijder de zaadjes en leg de partjes op een bakplaat.",
+      "Snijd de paprika in 8 partjes en de courgette in plakjes.",
+      "Leg paprika en courgette bij de pompoen met de knoflooktenen. Besprenkel met 2 el olijfolie, kruid met peper, zout en ras-el-hanout. Rooster 20 minuten.",
+      "Kook intussen de parelcouscous volgens de verpakking in gezouten water.",
+      "Maak de dressing: rasp de citroenschil, knijp de geroosterde knoflook uit en meng met honing en 2 el extra vierge olijfolie.",
+      "Snijd de halloumi in blokjes en de peterselie fijn.",
+      "Bak de halloumi in 1 el olijfolie goudbruin.",
+      "Giet de couscous af, spoel koud, meng met dressing en peterselie. Voeg groenten en halloumi toe, breng op smaak en besprenkel met de resterende honing."
+    ],
+    bestand: "parelcouscous-met-geroosterde-groenten-en-halloumi.md",
+    bronNaam: "Weekmenus.be, Parelcouscous met geroosterde groenten en halloumi",
+    bronUrl: "https://weekmenus.be/parelcouscous-met-geroosterde-groenten-en-halloumi/"
+  },
+  {
+    id: "zalm-honing-mosterd",
+    titel: "Zalm uit de oven met honing-mosterd",
+    categorie: "vis",
+    personen: 2,
+    tijd: 25,
+    seizoen: "hele jaar",
+    omschrijving: "Malse zalmfilet uit de oven met een glazuur van honing, Dijonmosterd en knoflook. Klaar in een half uurtje.",
+    tags: ["oven", "snel", "zalm"],
+    moestuin: "verse dille of peterselie",
+    ingredienten: [
+      "2 zalmfilets",
+      "2 el honing",
+      "2 el Dijonmosterd",
+      "2 tenen knoflook, geperst",
+      "1 el olijfolie",
+      "Zout en peper naar smaak",
+      "Verse dille of peterselie (optioneel)"
+    ],
+    stappen: [
+      "Verwarm de oven voor op 200 °C en bekleed een bakplaat met aluminiumfolie.",
+      "Leg de zalmfilets op de bakplaat.",
+      "Meng in een kom de honing, mosterd, olijfolie, geperste knoflook, zout en peper.",
+      "Bestrijk de zalm gelijkmatig met het honing-mosterdmengsel.",
+      "Bak de zalm ongeveer 10 tot 12 minuten tot hij gaar en goudbruin is.",
+      "Strooi vlak voor het serveren verse dille of peterselie erover."
+    ],
+    bestand: "zalm-uit-de-oven-honing-mosterd.md",
+    bronNaam: "Lekker en Simpel, Honing mosterd zalm uit de oven",
+    bronUrl: "https://www.lekkerensimpel.com/honing-mosterd-zalm-uit-de-oven/"
+  },
+  {
+    id: "kabeljauw-citroen",
+    titel: "Kabeljauw uit de oven met citroen en kruiden",
+    categorie: "vis",
+    personen: 2,
+    tijd: 30,
+    seizoen: "hele jaar",
+    omschrijving: "Mals stuk kabeljauw uit de oven met een frisse citroenboter en verse dille en peterselie.",
+    tags: ["oven", "citroen", "kabeljauw"],
+    moestuin: "verse dille en peterselie",
+    ingredienten: [
+      "300 g kabeljauwfilet zonder vel (2 mootjes van 150 g)",
+      "25 g roomboter, op kamertemperatuur",
+      "1 teen knoflook",
+      "1 citroen",
+      "2 takjes verse dille",
+      "2 takjes verse peterselie",
+      "Zout en peper",
+      "Optioneel: kappertjes"
+    ],
+    stappen: [
+      "Verwarm de oven voor op 180 °C.",
+      "Dep de kabeljauwfilets droog en bestrooi ze met zout en peper.",
+      "Hak de dille en peterselie grof. Snijd per mootje kabeljauw een schijfje citroen af.",
+      "Rasp de schil van de rest van de citroen en pers de citroen uit.",
+      "Meng de zachte roomboter met de geraspte citroenschil, 2 el citroensap, zout en peper. Pers de knoflook erboven uit en roer erdoor.",
+      "Doe voor iedere moot 1 el citroensap in een ovenschaaltje en leg de kabeljauw erin. Besmeer de vis met de helft van de citroenboter.",
+      "Leg op iedere filet een schijfje citroen en bak 12 tot 15 minuten, tot een kerntemperatuur van 65 tot 70 °C.",
+      "Bestrooi met de kruiden en verdeel vlak voor het serveren de resterende boter erover."
+    ],
+    bestand: "kabeljauw-uit-de-oven-met-citroen.md",
+    bronNaam: "Lekker Tafelen, Kabeljauw met citroen uit de oven",
+    bronUrl: "https://lekkertafelen.nl/recept/kabeljauw-met-citroen-uit-de-oven/"
+  },
+  {
+    id: "gambas-al-ajillo",
+    titel: "Knoflookgamba's (gambas al ajillo)",
+    categorie: "vis",
+    personen: 2,
+    tijd: 15,
+    seizoen: "hele jaar",
+    omschrijving: "Spaanse klassieker: garnalen snel gebakken in knoflook, olijfolie en een beetje pit. Heerlijk met stokbrood.",
+    tags: ["Spaans", "tapas", "snel", "garnalen"],
+    moestuin: "verse peterselie",
+    ingredienten: [
+      "200 g rauwe (grote) garnalen, gepeld",
+      "3 tenen knoflook",
+      "Flinke scheut olijfolie",
+      "½ rode peper",
+      "Snuf cayennepeper",
+      "Verse peterselie",
+      "Zout en peper naar smaak",
+      "Stokbrood om te serveren"
+    ],
+    stappen: [
+      "Snijd de knoflook in dunne plakjes en hak de rode peper fijn.",
+      "Doe de knoflook en rode peper met de garnalen en de olijfolie in een kom. Breng op smaak met zout, peper en cayennepeper en meng goed.",
+      "Bak de garnalen 3 tot 4 minuten tot ze roze en gaar zijn. Roer regelmatig en bak ze niet te lang, anders worden ze taai.",
+      "Schep in kommetjes en bestrooi met verse peterselie."
+    ],
+    bestand: "knoflookgambas-gambas-al-ajillo.md",
+    bronNaam: "Leuke Recepten, Garnalen in knoflook (gambas al ajillo)",
+    bronUrl: "https://www.leukerecepten.nl/recepten/garnalen-in-knoflook-gambas-al-ajillo/"
+  },
+  {
+    id: "avocado-ei-toast",
+    titel: "Avocado-ei op toast",
+    categorie: "vegetarisch",
+    maaltijd: "lunch",
+    personen: 2,
+    tijd: 15,
+    seizoen: "hele jaar",
+    omschrijving: "Geroosterd brood met romige avocadospread en plakjes gekookt ei, met sesam en chilivlokken. Simpele, voedzame lunch.",
+    tags: ["brood", "snel", "ei"],
+    moestuin: "",
+    ingredienten: [
+      "4 sneetjes volkorenbrood",
+      "2 rijpe avocado's",
+      "4 eieren",
+      "1 el citroensap",
+      "Sesamzaad",
+      "Chilivlokken",
+      "Zout en peper"
+    ],
+    stappen: [
+      "Breng water aan de kook, kook de eieren 7 tot 8 minuten hard, schrik ze af onder koud water, pel ze en snijd in plakjes.",
+      "Rooster het brood in de broodrooster of een droge koekenpan tot goudbruin en knapperig.",
+      "Halveer de avocado's, verwijder de pit en schep het vruchtvlees in een kom. Prak tot een smeuïge massa en breng op smaak met citroensap, zout en peper.",
+      "Besmeer de toast royaal met de avocado, leg de eierschijfjes erop en bestrooi met sesamzaad en chilivlokken."
+    ],
+    bestand: "avocado-ei-op-toast.md",
+    bronNaam: "GezondWeekmenu, Avocado toast met ei",
+    bronUrl: "https://gezondweekmenu.nl/avocado-toast-met-ei/"
+  },
+  {
+    id: "tosti-kaas-pesto",
+    titel: "Tosti met kaas en pesto",
+    categorie: "vegetarisch",
+    maaltijd: "lunch",
+    personen: 2,
+    tijd: 20,
+    seizoen: "hele jaar",
+    omschrijving: "Knapperige tosti met groene pesto en gesmolten kaas, eventueel met ham. Snelle, warme lunch.",
+    tags: ["brood", "warm", "snel"],
+    moestuin: "",
+    ingredienten: [
+      "4 sneetjes brood naar keuze",
+      "50 g groene pesto",
+      "4 plakken (belegen) kaas",
+      "Optioneel: 4 plakken ham",
+      "Roomboter, margarine of mayonaise om te besmeren"
+    ],
+    stappen: [
+      "Besmeer de boterhammen aan één kant met pesto.",
+      "Leg op twee pestobestreken boterhammen de kaas (en eventueel de ham).",
+      "Dek af met de overige boterhammen, met de pestokant naar beneden.",
+      "Besmeer de buitenkant met roomboter, margarine of mayonaise.",
+      "Bak de tosti goudbruin en knapperig op middelhoog vuur in een koekenpan, tosti-ijzer, airfryer of oven."
+    ],
+    bestand: "tosti-met-kaas-en-pesto.md",
+    bronNaam: "KeukenLiefde, Tosti met kaas en pesto",
+    bronUrl: "https://www.keukenliefde.nl/recepten/tosti-met-kaas-en-pesto/"
+  },
+  {
+    id: "wrap-zalm-roomkaas",
+    titel: "Wrap met gerookte zalm en roomkaas",
+    categorie: "vis",
+    maaltijd: "lunch",
+    personen: 2,
+    tijd: 10,
+    seizoen: "hele jaar",
+    omschrijving: "Zachte tortillawrap met roomkaas, gerookte zalm, rucola en pijnboompitten. In tien minuten klaar.",
+    tags: ["brood", "snel", "zalm"],
+    moestuin: "",
+    ingredienten: [
+      "2 tortillawraps",
+      "100 g gerookte zalm",
+      "40 g (kruiden)roomkaas",
+      "60 g rucola",
+      "20 g pijnboompitten",
+      "Peper",
+      "Scheutje citroensap"
+    ],
+    stappen: [
+      "Besmeer elke wrap met de roomkaas.",
+      "Verdeel de gerookte zalm, rucola en pijnboompitten over de wraps.",
+      "Breng op smaak met peper en een scheutje citroensap.",
+      "Rol de wraps strak op en snijd elke wrap doormidden."
+    ],
+    bestand: "wrap-met-gerookte-zalm-en-roomkaas.md",
+    bronNaam: "FoodStyle, Wraps zalm roomkaas en rucola",
+    bronUrl: "https://foodstyle.nl/zalm-wraps-met-roomkaas-en-rucola/"
+  },
+  {
+    id: "salade-geitenkaas-honing",
+    titel: "Salade met geitenkaas, walnoten, honing en appel",
+    categorie: "vegetarisch",
+    maaltijd: "lunch",
+    personen: 2,
+    tijd: 15,
+    seizoen: "hele jaar",
+    omschrijving: "Frisse salade met romige geitenkaas, knapperige walnoten, zoete appel en granaatappel, met een honingdressing. Lichte lunch.",
+    tags: ["salade", "fris", "geitenkaas"],
+    moestuin: "appel",
+    ingredienten: [
+      "100 g geitenkaas",
+      "Handje walnoten",
+      "150 g rucola melange",
+      "50 g granaatappelpitjes",
+      "1 appel",
+      "2 tl honing",
+      "3 el olijfolie",
+      "1 tl citroensap",
+      "Zout en peper"
+    ],
+    stappen: [
+      "Hak de walnoten wat fijner en snijd de appel in blokjes.",
+      "Meng in een bakje de honing, olijfolie, citroensap, zout en peper tot een dressing.",
+      "Doe de sla in een grote kom, voeg de dressing toe en meng goed door elkaar.",
+      "Verdeel de sla over twee borden.",
+      "Verdeel de walnoten, granaatappelpitjes en appel over de salade.",
+      "Verkruimel de geitenkaas erover en serveer."
+    ],
+    bestand: "salade-geitenkaas-walnoot-honing.md",
+    bronNaam: "Lekker en Simpel, Salade met geitenkaas, walnoten en honing",
+    bronUrl: "https://www.lekkerensimpel.com/salade-met-geitenkaas/"
+  },
+  {
+    id: "uitsmijter-kaas",
+    titel: "Uitsmijter met kaas",
+    categorie: "vegetarisch",
+    maaltijd: "lunch",
+    personen: 2,
+    tijd: 10,
+    seizoen: "hele jaar",
+    omschrijving: "Klassieke warme lunch: geroosterd brood met kaas (en eventueel ham) en zachtgebakken spiegeleieren erop.",
+    tags: ["brood", "warm", "ei", "snel"],
+    moestuin: "verse peterselie",
+    ingredienten: [
+      "4 sneetjes brood",
+      "4 eieren",
+      "2 plakken belegen kaas",
+      "Optioneel: 2 plakken ham",
+      "1 el kruidenboter (of gewone boter)",
+      "1 el olijfolie",
+      "Peper en zout",
+      "Handvol verse peterselie"
+    ],
+    stappen: [
+      "Verhit de olijfolie in een koekenpan op middelhoog vuur. Breek de eieren erin, bestrooi met peper en zout en bak tot het eiwit gestold is en de dooier nog zacht blijft. Verlaag het vuur zodra de onderkant stevig is.",
+      "Besmeer het brood rijkelijk met kruidenboter en beleg met de kaas (en eventueel de ham).",
+      "Schuif de gebakken eieren voorzichtig op het belegde brood; de warmte laat de kaas licht smelten.",
+      "Hak de peterselie fijn en strooi erover."
+    ],
+    bestand: "uitsmijter-met-kaas.md",
+    bronNaam: "Leuke Recepten, Uitsmijter",
+    bronUrl: "https://www.leukerecepten.nl/recepten/uitsmijter/"
+  },
+  {
+    id: "broodje-brie-appel",
+    titel: "Broodje brie met appel, honing en walnoot",
+    categorie: "vegetarisch",
+    maaltijd: "lunch",
+    personen: 2,
+    tijd: 20,
+    seizoen: "hele jaar",
+    omschrijving: "Warm broodje uit de oven met romige brie, zoete appel, honing en knapperige walnoten. Hartig-zoete broodlunch.",
+    tags: ["brood", "warm", "brie"],
+    moestuin: "appel",
+    ingredienten: [
+      "2 afbakbroodjes (stokbrood of speltbrood)",
+      "100 g brie",
+      "15 g walnoten",
+      "2 el vloeibare honing",
+      "½ appel"
+    ],
+    stappen: [
+      "Verwarm de oven voor op 200 °C.",
+      "Hak de walnoten fijn. Schil de appel, verwijder het klokhuis en snijd in dunne plakjes. Snijd de brie in dunne plakken.",
+      "Bak de afbakbroodjes 5 minuten in het midden van de oven.",
+      "Haal ze eruit, snijd horizontaal door en besmeer de onderkant met honing.",
+      "Beleg afwisselend met brie en appel, begin en eindig met brie. Verdeel de walnoten erover.",
+      "Leg de bovenkant erop, druk licht aan en bak nog ongeveer 5 minuten tot de brie begint te smelten."
+    ],
+    bestand: "broodje-brie-met-appel-honing-walnoot.md",
+    bronNaam: "Eetman, Broodjes brie met appel, walnoten en honing",
+    bronUrl: "https://www.eetman.nl/broodjes-brie-met-appel/"
+  },
+  {
+    id: "roggebrood-makreel",
+    titel: "Roggebrood met makreelsalade",
+    categorie: "vis",
+    maaltijd: "lunch",
+    personen: 2,
+    tijd: 15,
+    seizoen: "hele jaar",
+    omschrijving: "Stevig roggebrood met avocado en een smeuïge salade van gerookte makreel, met radijs en bieslook. Voedzame vislunch.",
+    tags: ["brood", "vis", "snel"],
+    moestuin: "radijs, verse kruiden",
+    ingredienten: [
+      "4 plakjes roggebrood",
+      "1 (gerookte) makreelfilet",
+      "4 el Griekse yoghurt",
+      "1 el mayonaise",
+      "1 el ketchup (optioneel, kleine hoeveelheid)",
+      "Snuf paprikapoeder",
+      "Peper en zout",
+      "1 el peterselie",
+      "4 radijsjes",
+      "1 avocado",
+      "6 takjes bieslook"
+    ],
+    stappen: [
+      "Snijd de avocado in dunne reepjes.",
+      "Meng de makreelfilet met de Griekse yoghurt, mayonaise en eventueel de ketchup met een vork.",
+      "Voeg paprikapoeder, peper, zout en peterselie toe en meng tot een smeuïge salade.",
+      "Beleg het roggebrood met avocado en schep de makreelsalade erop.",
+      "Snijd de radijs in plakjes, hak de bieslook fijn en garneer alles ermee."
+    ],
+    bestand: "roggebrood-met-makreelsalade.md",
+    bronNaam: "Food Places, Roggebrood met makreelsalade",
+    bronUrl: "https://food-places.nl/roggebrood-met-makreelsalade/"
+  },
+  {
+    id: "spaanse-tortilla",
+    titel: "Spaanse aardappeltortilla",
+    categorie: "vegetarisch",
+    maaltijd: "avondeten",
+    personen: 2,
+    tijd: 40,
+    seizoen: "hele jaar",
+    omschrijving: "Stevige Spaanse omelet met zachtgegaarde aardappel en ui. Warm of koud lekker, ook als lunch.",
+    tags: ["Spaans", "aardappel", "ei"],
+    moestuin: "",
+    ingredienten: [
+      "500 g vastkokende aardappelen",
+      "1 ui",
+      "4 eieren",
+      "Zout en peper",
+      "Scheut olijfolie"
+    ],
+    stappen: [
+      "Schil de aardappelen en snijd ze in dunne plakjes. Snipper de ui.",
+      "Verhit olie in een koekenpan en bak de aardappel ongeveer 20 minuten op laag vuur. Voeg de laatste minuten de ui toe.",
+      "Klop de eieren los en breng op smaak met zout en peper.",
+      "Laat overtollige olie uitlekken en meng de aardappel en ui door de eieren.",
+      "Veeg de pan schoon, verhit opnieuw wat olie en giet het mengsel terug. Bak met de deksel erop ongeveer 8 minuten op laag vuur tot het ei gestold is.",
+      "Keer de tortilla om en bak de andere kant nog ongeveer 5 minuten goudbruin. Snijd in punten."
+    ],
+    bestand: "spaanse-aardappeltortilla.md",
+    bronNaam: "Leuke Recepten, Spaanse aardappeltortilla",
+    bronUrl: "https://www.leukerecepten.nl/recepten/spaanse-aardappeltortilla/"
+  },
+  {
+    id: "zeebaars-citroen-mosterd",
+    titel: "Op de huid gebakken zeebaars met citroen-mosterdsaus",
+    categorie: "vis",
+    maaltijd: "avondeten",
+    personen: 2,
+    tijd: 25,
+    seizoen: "hele jaar",
+    omschrijving: "Krokant gebakken zeebaarsfilet met een romige saus van grove mosterd en citroen. Snel en verfijnd.",
+    tags: ["vis", "snel", "citroen"],
+    moestuin: "",
+    ingredienten: [
+      "2 zeebaarsfilets met vel",
+      "1 el bloem",
+      "3 el grove mosterd",
+      "200 ml kookroom (of soyaroom)",
+      "1 biologische citroen",
+      "Kruidenzout (of zeezoutvlokken) en peper",
+      "Verse tuinkers"
+    ],
+    stappen: [
+      "Bestrooi de zeebaarsfilets met bloem; dat houdt de sappen vast en geeft een krokant korstje.",
+      "Verhit een anti-aanbakpan op middelhoog vuur met bakolie of roomboter. Bak de vis op de huidkant tot goudbruin en krokant en draai hem heel kort om.",
+      "Maak in een apart pannetje de saus: doe de grove mosterd erin, giet de room en 1 el citroensap erbij en rasp de schil van een halve citroen erover. Laat kort pruttelen.",
+      "Serveer de krokante zeebaars met de citroen-mosterdsaus erover en de tuinkers."
+    ],
+    bestand: "zeebaars-met-citroen-mosterdsaus.md",
+    bronNaam: "The Lemon Kitchen, Op de huid gebakken zeebaars met citroen-mosterdsaus",
+    bronUrl: "https://www.thelemonkitchen.nl/op-de-huid-gebakken-zeebaars-met-citroen-mosterdsaus/"
+  },
+  {
+    id: "doperwtenrisotto",
+    titel: "Risotto met doperwten",
+    categorie: "vegetarisch",
+    maaltijd: "avondeten",
+    personen: 2,
+    tijd: 40,
+    seizoen: "lente en zomer",
+    omschrijving: "Romige risotto met verse doperwten, witte wijn en Parmezaan. Een klassieker die net wat aandacht vraagt maar simpel is.",
+    tags: ["Italiaans", "risotto", "doperwten"],
+    moestuin: "doperwten",
+    ingredienten: [
+      "200 g risottorijst",
+      "20 g boter",
+      "1 sjalot",
+      "100 ml droge witte wijn",
+      "750 ml groentebouillon",
+      "150 g doperwten (vers of diepvries)",
+      "30 g Parmezaanse kaas, geschaafd",
+      "Vers gemalen peper",
+      "Klein beetje citroensap"
+    ],
+    stappen: [
+      "Snipper de sjalot en verwarm de groentebouillon. Schaaf de Parmezaan.",
+      "Verhit 15 g boter in een pan met dikke bodem. Fruit de sjalot 2 minuten, voeg de risottorijst toe en bak 2 minuten tot alle korrels met boter bedekt zijn. Blus af met de witte wijn.",
+      "Laat de wijn opnemen. Voeg dan soeplepel voor soeplepel de bouillon toe: wacht steeds tot het vocht is opgenomen, tot de risotto bijna gaar is.",
+      "Kook ondertussen de doperwten in ongeveer 5 minuten gaar.",
+      "Haal de risotto van het vuur en roer de doperwten erdoor.",
+      "Breng op smaak met peper, roer de resterende 5 g boter en de Parmezaan erdoor en maak af met een klein beetje citroensap."
+    ],
+    bestand: "doperwtenrisotto.md",
+    bronNaam: "Alles over Italiaanse eten, Risotto met doperwten",
+    bronUrl: "https://www.allesoveritaliaanseten.nl/recepten/risotto-met-doperwten/"
+  },
+  {
+    id: "spanakopita",
+    titel: "Spanakopita (Griekse spinazie-fetataart)",
+    categorie: "vegetarisch",
+    maaltijd: "avondeten",
+    personen: 2,
+    tijd: 60,
+    seizoen: "hele jaar",
+    omschrijving: "Knapperige Griekse taart van filodeeg met een vulling van spinazie, feta en verse kruiden. Warm of koud lekker.",
+    tags: ["Grieks", "spinazie", "oven"],
+    moestuin: "spinazie, verse kruiden",
+    ingredienten: [
+      "100 g feta",
+      "250 g verse spinazie",
+      "1 ei",
+      "1 bosui",
+      "½ pak filodeeg",
+      "1 tl gedroogde of verse dille",
+      "1 tl peterselie",
+      "Boter of olijfolie (om te bestrijken)",
+      "Zout en peper"
+    ],
+    stappen: [
+      "Verwarm de oven voor op 200 °C.",
+      "Snijd de bosui fijn en de spinazie klein.",
+      "Verhit wat olie in een pan en bak de bosui kort. Voeg de spinazie in delen toe en laat slinken. Breng op smaak met dille, peterselie, zout en peper en haal van het vuur.",
+      "Laat de spinazie goed uitlekken in een zeef; druk het vocht er met een lepel uit.",
+      "Prak in een kom de feta met het ei fijn en meng de uitgelekte spinazie erdoor.",
+      "Vet een kleine ovenschaal in. Leg 5 vellen filodeeg op elkaar en bestrijk elk vel met wat boter of olie.",
+      "Verdeel de vulling erover en dek af met nog 5 vellen filodeeg, elk weer met boter of olie bestreken (ook de bovenkant).",
+      "Bak 30 tot 35 minuten tot de taart goudbruin en knapperig is."
+    ],
+    bestand: "spanakopita.md",
+    bronNaam: "Lekker en Simpel, Spanakopita",
+    bronUrl: "https://www.lekkerensimpel.com/spanakopita/"
+  },
+  {
+    id: "pita-falafel",
+    titel: "Pitabroodjes met falafel en feta",
+    categorie: "vegetarisch",
+    maaltijd: "lunch",
+    personen: 2,
+    tijd: 20,
+    seizoen: "hele jaar",
+    omschrijving: "Warme pita gevuld met falafel, feta, komkommer en tzatziki. Snelle, hartige broodlunch.",
+    tags: ["brood", "pita", "snel"],
+    moestuin: "komkommer",
+    ingredienten: [
+      "4 grote pitabroodjes",
+      "200 g falafelballetjes",
+      "100 g feta",
+      "½ komkommer",
+      "Tzatziki (kant-en-klaar of zelfgemaakt)",
+      "Optioneel: 1 tomaat, in stukjes (kleine hoeveelheid)"
+    ],
+    stappen: [
+      "Verwarm de oven voor volgens de verpakking van de pitabroodjes en bak ze af.",
+      "Bak de falafelballetjes in een pan in ongeveer 5 minuten (controleer de verpakking).",
+      "Snijd de komkommer en feta (en eventueel de tomaat) in stukjes.",
+      "Snijd de afgebakken pitabroodjes open.",
+      "Vul de broodjes met falafel, komkommer, feta, tzatziki en eventueel wat tomaat. Serveer direct."
+    ],
+    bestand: "pitabroodjes-met-falafel.md",
+    bronNaam: "Lekker en Simpel, Pitabroodjes met falafel en feta",
+    bronUrl: "https://www.lekkerensimpel.com/pitabroodjes-met-falafel-en-feta/"
+  },
+  {
+    id: "broodje-tonijnsalade",
+    titel: "Broodje tonijnsalade",
+    categorie: "vis",
+    maaltijd: "lunch",
+    personen: 2,
+    tijd: 20,
+    seizoen: "hele jaar",
+    omschrijving: "Broodje met een frisse zelfgemaakte tonijnsalade met doperwten, mais en ui. Snelle vislunch.",
+    tags: ["brood", "vis", "snel"],
+    moestuin: "",
+    ingredienten: [
+      "4 sneetjes brood (of 2 broodjes)",
+      "1 blik tonijn, uitgelekt",
+      "60 g doperwten (uitgelekt)",
+      "½ kleine ui of sjalot",
+      "1½ tl mayonaise",
+      "½ tl paprikapoeder",
+      "Zout en peper",
+      "2 el mais",
+      "Optioneel: rucola"
+    ],
+    stappen: [
+      "Snipper de ui fijn en laat de doperwten, mais en tonijn goed uitlekken.",
+      "Meng in een kom de ui, doperwten, mayonaise, tonijn, paprikapoeder, zout en peper goed door elkaar.",
+      "Roer de mais erdoor.",
+      "Leg eventueel wat rucola op het brood en verdeel de tonijnsalade erop."
+    ],
+    bestand: "broodje-tonijnsalade.md",
+    bronNaam: "Lekker en Simpel, Broodje tonijnsalade",
+    bronUrl: "https://www.lekkerensimpel.com/broodje-tonijnsalade/"
+  }
+];
+
+const state = { search: "", cat: "alle", meal: "alle", time: 0 };
+
+/* ---------- eigen recepten (per apparaat, localStorage) ---------- */
+let userRecepten = loadUserRecepten();
+function loadUserRecepten() {
+  try { return JSON.parse(localStorage.getItem("gz_eigen_recepten")) || []; }
+  catch (e) { return []; }
+}
+function saveUserRecepten() {
+  try { localStorage.setItem("gz_eigen_recepten", JSON.stringify(userRecepten)); return true; }
+  catch (e) { showToast("Opslaan lukte niet (is de foto te groot?)"); return false; }
+}
+function allRecepten() { return recepten.concat(userRecepten); }
+function getRecept(id) { return allRecepten().find(x => x.id === id); }
+
+/* ---------- beoordeling, aantal keer gemaakt, verbergen (per apparaat) ---------- */
+let receptMeta = loadMeta();
+let hiddenIds = loadHidden();
+function loadMeta() { try { return JSON.parse(localStorage.getItem("gz_recept_meta")) || {}; } catch (e) { return {}; } }
+function saveMeta() { try { localStorage.setItem("gz_recept_meta", JSON.stringify(receptMeta)); } catch (e) {} }
+function getMeta(id) { const m = receptMeta[id] || {}; return { rating: (typeof m.rating === "number" ? m.rating : null), count: m.count || 0 }; }
+function loadHidden() { try { return JSON.parse(localStorage.getItem("gz_verborgen")) || []; } catch (e) { return []; } }
+function saveHidden() { try { localStorage.setItem("gz_verborgen", JSON.stringify(hiddenIds)); } catch (e) {} }
+
+function setRating(id, n) {
+  const m = getMeta(id); m.rating = n; receptMeta[id] = m; saveMeta();
+  document.querySelectorAll("#rateScale .rate-num").forEach((b, i) => b.classList.toggle("active", i === n));
+  const rv = document.getElementById("rateVal"); if (rv) rv.textContent = n + "/10";
+  render();
+  showToast(`Cijfer ${n}/10 opgeslagen ✓`);
+}
+function incCount(id, delta) {
+  const m = getMeta(id); m.count = Math.max(0, m.count + delta); receptMeta[id] = m; saveMeta();
+  const el = document.getElementById("cookCount"); if (el) el.textContent = m.count;
+  render();
+  showToast(`Opgeslagen ✓ · ${m.count}× gemaakt`);
+}
+function rateButtons(id, rating) {
+  let html = "";
+  for (let n = 0; n <= 10; n++) {
+    html += `<button class="rate-num ${rating === n ? "active" : ""}" onclick="setRating('${id}', ${n})">${n}</button>`;
+  }
+  return html;
+}
+function hideRecept(id) {
+  const r = getRecept(id);
+  if (r && r.eigen) { deleteRecept(id); return; }
+  if (!hiddenIds.includes(id)) hiddenIds.push(id);
+  saveHidden();
+  closeModal();
+  render();
+  showToast("Recept verwijderd (op dit apparaat)");
+}
+function restoreHidden() {
+  hiddenIds = [];
+  saveHidden();
+  render();
+  showToast("Verborgen recepten teruggezet");
+}
+const grid = document.getElementById("grid");
+const empty = document.getElementById("empty");
+const countEl = document.getElementById("count");
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* 3D-kanteling die de cursor volgt, met zachte lift */
+function attachTilt(card) {
+  if (reduceMotion) return;
+  const MAX = 8; // graden
+  card.addEventListener("pointermove", e => {
+    const rect = card.getBoundingClientRect();
+    const px = (e.clientX - rect.left) / rect.width;
+    const py = (e.clientY - rect.top) / rect.height;
+    const ry = (px - 0.5) * 2 * MAX;
+    const rx = (0.5 - py) * 2 * MAX;
+    card.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg) translateY(-6px) scale(1.02)`;
+  });
+  card.addEventListener("pointerleave", () => {
+    card.style.transform = "";
+  });
+}
+
+/* interactieve 3D-header: kanteling + lichtspot die de cursor volgt */
+(function initHeader3D() {
+  if (reduceMotion) return;
+  const header = document.getElementById("siteHeader");
+  const stage = document.getElementById("hdrStage");
+  const glow = document.getElementById("hdrGlow");
+  if (!header || !stage) return;
+  let raf = null, rx = 0, ry = 0, gx = 30, gy = 22;
+  function apply() {
+    raf = null;
+    stage.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
+    if (glow) glow.style.background =
+      `radial-gradient(340px 240px at ${gx}% ${gy}%, rgba(200,155,94,0.42), transparent 70%)`;
+  }
+  header.addEventListener("pointermove", e => {
+    const r = header.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width;
+    const py = (e.clientY - r.top) / r.height;
+    ry = (px - 0.5) * 12;
+    rx = (0.5 - py) * 9;
+    gx = px * 100; gy = py * 100;
+    if (!raf) raf = requestAnimationFrame(apply);
+  });
+  header.addEventListener("pointerleave", () => {
+    rx = 0; ry = 0; gx = 30; gy = 22;
+    if (!raf) raf = requestAnimationFrame(apply);
+  });
+})();
+
+/* rustige, vaste muisaanwijzer: gouden rondje precies op de cursor */
+(function initCursor() {
+  if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+  const ring = document.getElementById("cursorRing");
+  if (!ring) return;
+  document.documentElement.classList.add("cursor-on");
+  const hotSel = "a, button, .card, .chip, .ing-item, .cart-line, input, .close, .drawer-head .x, .add-all, .cart-fab";
+  document.addEventListener("pointermove", e => {
+    ring.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+    const t = e.target;
+    ring.classList.toggle("hot", !!(t && t.closest && t.closest(hotSel)));
+  }, { passive: true });
+  document.addEventListener("mouseleave", () => { ring.style.opacity = "0"; });
+  document.addEventListener("mouseenter", () => { ring.style.opacity = ""; });
+})();
+
+function render() {
+  const q = state.search.toLowerCase();
+  const list = allRecepten().filter(r => {
+    if (hiddenIds.includes(r.id)) return false;
+    if (state.cat !== "alle" && r.categorie !== state.cat) return false;
+    if (state.meal !== "alle" && (r.maaltijd || "avondeten") !== state.meal) return false;
+    if (state.time > 0 && r.tijd > state.time) return false;
+    if (q) {
+      const hay = (r.titel + " " + r.omschrijving + " " + r.tags.join(" ") + " " + r.ingredienten.join(" ")).toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    return true;
+  });
+  grid.innerHTML = "";
+  list.forEach(r => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.onclick = () => openModal(r.id);
+    const gardenTag = r.moestuin ? `<span class="tag garden">🌱 tuin</span>` : "";
+    const eigenTag = r.eigen ? `<span class="tag eigen">eigen</span>` : "";
+    const m = getMeta(r.id);
+    const rateBadge = m.rating !== null ? `<span class="card-rating">★ ${m.rating}</span>` : "";
+    const countTag = m.count ? `<span class="tag cooked">${m.count}× gemaakt</span>` : "";
+    const maaltijd = r.maaltijd || "avondeten";
+    card.innerHTML = `
+      <div class="card-corner">
+        <button class="card-del" title="Verwijderen" onclick="event.stopPropagation(); hideRecept('${r.id}')">&times;</button>
+        ${rateBadge}
+      </div>
+      <h3>${r.titel}</h3>
+      <div class="desc">${r.omschrijving}</div>
+      <div class="meta">
+        <span class="tag meal">${maaltijd}</span>
+        <span class="tag">${r.categorie}</span>
+        <span class="tag time">${r.tijd} min</span>
+        ${countTag}${gardenTag}${eigenTag}
+      </div>`;
+    attachTilt(card);
+    grid.appendChild(card);
+  });
+  empty.style.display = list.length ? "none" : "block";
+  countEl.textContent = `${list.length} van ${allRecepten().length} recepten`;
+  const rb = document.getElementById("restoreBtn");
+  if (rb) { rb.style.display = hiddenIds.length ? "" : "none"; rb.textContent = `↩ ${hiddenIds.length} verborgen terugzetten`; }
+}
+
+let currentRecept = null;
+
+function openModal(id) {
+  const r = getRecept(id);
+  if (!r) return;
+  currentRecept = r;
+  const modal = document.getElementById("modal");
+  const ing = r.ingredienten.map((i, idx) => {
+    if (i.endsWith(":")) return `<li class="ing-head">${i}</li>`;
+    const added = inList(r.id, i);
+    return `<li class="ing-item ${added ? "added" : ""}" data-idx="${idx}" onclick="toggleIng('${r.id}', ${idx})">
+      <span class="box">${added ? "✓" : "+"}</span><span class="txt">${i}</span></li>`;
+  }).join("");
+  const stap = r.stappen.map(s => `<li>${s}</li>`).join("");
+  const garden = r.moestuin ? `<div class="garden-note">🌱 Uit eigen moestuin mogelijk: ${r.moestuin}</div>` : "";
+  const imgHtml = r.image ? `<img class="modal-img" src="${r.image}" alt="Foto bij ${r.titel}">` : "";
+  const meta = getMeta(r.id);
+  const rateValTxt = meta.rating !== null ? meta.rating + "/10" : "nog geen";
+  const rateBlock = `
+    <h4>Gegeten &amp; beoordeeld</h4>
+    <div class="rate-block">
+      <div class="rate-line">
+        <span class="rate-line-label">Aantal keer gemaakt</span>
+        <span class="stepper">
+          <button class="step-btn" onclick="incCount('${r.id}', -1)" aria-label="minder">−</button>
+          <span class="step-val" id="cookCount">${meta.count}</span>
+          <button class="step-btn" onclick="incCount('${r.id}', 1)" aria-label="meer">+</button>
+        </span>
+      </div>
+      <div class="rate-line rate-line-col">
+        <span class="rate-line-label">Jouw cijfer: <b class="rate-val" id="rateVal">${rateValTxt}</b></span>
+        <div class="rate-scale" id="rateScale">${rateButtons(r.id, meta.rating)}</div>
+      </div>
+    </div>`;
+  const bronPart = r.eigen
+    ? `${r.bron ? "Bron: " + r.bron + "<br>" : ""}Eigen recept (op dit apparaat)`
+    : `<a class="src-link" href="${r.bronUrl}" target="_blank" rel="noopener noreferrer">Bekijk het recept bij ${r.bronNaam} ↗</a><br><span class="src-file">Bestand: ${r.bestand}</span>`;
+  const delLabel = r.eigen ? "Verwijder dit recept" : "Verwijder dit recept (verbergen op dit apparaat)";
+  const srcHtml = `<div class="src">${bronPart}<br><button class="del-btn" onclick="hideRecept('${r.id}')">${delLabel}</button></div>`;
+  modal.innerHTML = `
+    <button class="close" onclick="closeModal()">&times;</button>
+    <h2>${r.titel}</h2>
+    <p class="sub">${r.omschrijving}</p>
+    <div class="facts">
+      <span class="tag meal">${r.maaltijd || "avondeten"}</span>
+      <span class="tag">${r.categorie}</span>
+      <span class="tag time">${r.tijd} min</span>
+      <span class="tag">${r.personen} personen</span>
+      <span class="tag">seizoen: ${r.seizoen}</span>
+    </div>
+    ${imgHtml}
+    ${garden}
+    <h4>Ingredienten</h4>
+    <p class="ing-hint">Tik een ingrediënt aan om het op je boodschappenlijstje te zetten.</p>
+    <ul class="ing-list">${ing}</ul>
+    <button class="add-all" onclick="addAll('${r.id}')">Alles op de lijst</button>
+    <h4>Bereiding</h4>
+    <ol>${stap}</ol>
+    ${rateBlock}
+    ${srcHtml}`;
+  document.getElementById("overlay").classList.add("open");
+}
+function closeModal() { document.getElementById("overlay").classList.remove("open"); }
+document.getElementById("overlay").addEventListener("click", e => {
+  if (e.target.id === "overlay") closeModal();
+});
+document.addEventListener("keydown", e => { if (e.key === "Escape") { closeModal(); closeDrawer(); closePrintOverlay(); closeRecipeForm(); } });
+
+/* ---------- eigen recept toevoegen ---------- */
+let formImage = "";
+function openRecipeForm() {
+  formImage = "";
+  ["f-titel", "f-oms", "f-ing", "f-stap", "f-bron"].forEach(id => { document.getElementById(id).value = ""; });
+  document.getElementById("f-tijd").value = "20";
+  document.getElementById("f-cat").value = "vegetarisch";
+  document.getElementById("f-meal").value = "avondeten";
+  document.getElementById("f-foto").value = "";
+  document.getElementById("f-preview").innerHTML = "";
+  document.getElementById("formOverlay").classList.add("open");
+}
+function closeRecipeForm() { document.getElementById("formOverlay").classList.remove("open"); }
+
+function handleFotoUpload(e) {
+  const file = e.target.files && e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    const img = new Image();
+    img.onload = () => {
+      const max = 1000;
+      let w = img.width, h = img.height;
+      if (w > max || h > max) {
+        const scale = Math.min(max / w, max / h);
+        w = Math.round(w * scale); h = Math.round(h * scale);
+      }
+      const canvas = document.createElement("canvas");
+      canvas.width = w; canvas.height = h;
+      canvas.getContext("2d").drawImage(img, 0, 0, w, h);
+      formImage = canvas.toDataURL("image/jpeg", 0.8);
+      document.getElementById("f-preview").innerHTML = `<img src="${formImage}" alt="voorbeeld">`;
+    };
+    img.src = ev.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function saveRecipeForm() {
+  const titel = document.getElementById("f-titel").value.trim();
+  if (!titel) { showToast("Geef minstens een titel op"); return; }
+  const ing = document.getElementById("f-ing").value.split("\n").map(s => s.trim()).filter(Boolean);
+  const stap = document.getElementById("f-stap").value.split("\n").map(s => s.trim()).filter(Boolean);
+  const rec = {
+    id: "eigen-" + Date.now(),
+    titel: titel,
+    categorie: document.getElementById("f-cat").value,
+    maaltijd: document.getElementById("f-meal").value,
+    personen: 2,
+    tijd: parseInt(document.getElementById("f-tijd").value, 10) || 0,
+    seizoen: "hele jaar",
+    omschrijving: document.getElementById("f-oms").value.trim(),
+    tags: [],
+    moestuin: "",
+    ingredienten: ing,
+    stappen: stap,
+    bron: document.getElementById("f-bron").value.trim(),
+    image: formImage,
+    eigen: true
+  };
+  userRecepten.push(rec);
+  if (!saveUserRecepten()) { userRecepten.pop(); return; }
+  closeRecipeForm();
+  render();
+  showToast("Eigen recept toegevoegd");
+}
+
+function deleteRecept(id) {
+  userRecepten = userRecepten.filter(r => r.id !== id);
+  saveUserRecepten();
+  closeModal();
+  render();
+  showToast("Recept verwijderd");
+}
+
+/* ---------- boodschappenlijstje ---------- */
+const STORE = "gz_boodschappen";
+let cart = loadCart();
+
+function loadCart() {
+  try { return JSON.parse(localStorage.getItem(STORE)) || []; }
+  catch (e) { return []; }
+}
+function saveCart() {
+  try { localStorage.setItem(STORE, JSON.stringify(cart)); } catch (e) {}
+  updateBadge();
+}
+function keyOf(receptId, item) { return receptId + "::" + item; }
+function inList(receptId, item) { return cart.some(c => c.key === keyOf(receptId, item)); }
+
+function toggleIng(receptId, idx) {
+  const r = getRecept(receptId);
+  const item = r.ingredienten[idx];
+  const k = keyOf(receptId, item);
+  const pos = cart.findIndex(c => c.key === k);
+  if (pos >= 0) cart.splice(pos, 1);
+  else cart.push({ key: k, recept: r.titel, item: item, done: false });
+  saveCart();
+  // update the row in place
+  const row = document.querySelector(`.ing-item[data-idx="${idx}"]`);
+  if (row) {
+    const on = pos < 0;
+    row.classList.toggle("added", on);
+    row.querySelector(".box").textContent = on ? "✓" : "+";
+  }
+  renderCart();
+}
+
+function addAll(receptId) {
+  const r = getRecept(receptId);
+  let added = 0;
+  r.ingredienten.forEach(item => {
+    if (item.endsWith(":")) return;
+    if (!inList(receptId, item)) {
+      cart.push({ key: keyOf(receptId, item), recept: r.titel, item: item, done: false });
+      added++;
+    }
+  });
+  saveCart();
+  // refresh modal rows
+  document.querySelectorAll(".ing-item").forEach(row => {
+    row.classList.add("added");
+    row.querySelector(".box").textContent = "✓";
+  });
+  renderCart();
+  showToast(added ? `${added} toegevoegd aan je lijstje` : "Stond al op je lijstje");
+}
+
+function updateBadge() {
+  document.getElementById("cartBadge").textContent = cart.length;
+}
+
+function renderCart() {
+  const body = document.getElementById("drawerBody");
+  if (!cart.length) {
+    body.innerHTML = `<p class="drawer-empty">Je lijstje is nog leeg.<br>Open een recept en tik ingrediënten aan.</p>`;
+    updateWaLink();
+    return;
+  }
+  const groups = {};
+  cart.forEach(c => { (groups[c.recept] = groups[c.recept] || []).push(c); });
+  let html = "";
+  Object.keys(groups).forEach(recept => {
+    html += `<div class="cart-group">${recept}</div>`;
+    groups[recept].forEach(c => {
+      html += `<div class="cart-line ${c.done ? "done" : ""}">
+        <input type="checkbox" ${c.done ? "checked" : ""} onchange="toggleDone('${escapeAttr(c.key)}')">
+        <span class="ct">${c.item}</span>
+        <button class="rm" onclick="removeItem('${escapeAttr(c.key)}')" aria-label="Verwijderen">&times;</button>
+      </div>`;
+    });
+  });
+  body.innerHTML = html;
+  updateWaLink();
+}
+
+function escapeAttr(s) { return s.replace(/'/g, "\\'").replace(/"/g, "&quot;"); }
+
+function toggleDone(key) {
+  const c = cart.find(x => x.key === key);
+  if (c) { c.done = !c.done; saveCart(); renderCart(); }
+}
+function removeItem(key) {
+  cart = cart.filter(x => x.key !== key);
+  saveCart(); renderCart();
+  // reflect in open modal if relevant
+  if (currentRecept) {
+    currentRecept.ingredienten.forEach((item, idx) => {
+      if (keyOf(currentRecept.id, item) === key) {
+        const row = document.querySelector(`.ing-item[data-idx="${idx}"]`);
+        if (row) { row.classList.remove("added"); row.querySelector(".box").textContent = "+"; }
+      }
+    });
+  }
+}
+function clearList() {
+  if (!cart.length) return;
+  cart = []; saveCart(); renderCart();
+  document.querySelectorAll(".ing-item").forEach(row => {
+    row.classList.remove("added"); row.querySelector(".box").textContent = "+";
+  });
+  showToast("Lijstje leeggemaakt");
+}
+
+function listAsText() {
+  const groups = {};
+  cart.forEach(c => { (groups[c.recept] = groups[c.recept] || []).push(c); });
+  let txt = "🛒 Boodschappenlijstje\n";
+  Object.keys(groups).forEach(recept => {
+    txt += `\n*${recept}*\n`;
+    groups[recept].forEach(c => { txt += `• ${c.item}\n`; });
+  });
+  return txt.trim();
+}
+function updateWaLink() {
+  const link = document.getElementById("waBtn");
+  link.href = "https://wa.me/?text=" + encodeURIComponent(listAsText());
+}
+function copyList() {
+  if (!cart.length) { showToast("Je lijstje is leeg"); return; }
+  const txt = listAsText();
+  copyText(txt).then(ok => showToast(ok ? "Lijstje gekopieerd" : "Kopiëren lukte niet, gebruik de WhatsApp-knop"));
+}
+function copyText(text) {
+  // moderne klembord-API waar toegestaan (HTTPS + geen afgeschermd frame)
+  if (navigator.clipboard && navigator.clipboard.writeText && window.isSecureContext) {
+    return navigator.clipboard.writeText(text)
+      .then(() => true)
+      .catch(() => fallbackCopy(text));
+  }
+  return Promise.resolve(fallbackCopy(text));
+}
+function fallbackCopy(text) {
+  // klassieke methode, werkt ook in afgeschermde frames en via file://
+  try {
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    ta.setAttribute("readonly", "");
+    ta.style.position = "fixed";
+    ta.style.top = "0";
+    ta.style.left = "0";
+    ta.style.opacity = "0";
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    ta.setSelectionRange(0, text.length);
+    const ok = document.execCommand("copy");
+    document.body.removeChild(ta);
+    return ok;
+  } catch (e) {
+    return false;
+  }
+}
+
+function buildShoppingInner() {
+  const groups = {};
+  cart.forEach(c => { (groups[c.recept] = groups[c.recept] || []).push(c); });
+  let datum = "";
+  try { datum = new Date().toLocaleDateString("nl-NL", { day: "numeric", month: "long", year: "numeric" }); } catch (e) {}
+  let html = `<h1>Boodschappenlijstje</h1>` + (datum ? `<p class="pdate">${datum}</p>` : "");
+  Object.keys(groups).forEach(recept => {
+    html += `<h2>${recept}</h2><ul>`;
+    groups[recept].forEach(c => { html += `<li><span class="pbox"></span>${c.item}</li>`; });
+    html += `</ul>`;
+  });
+  return html;
+}
+
+function buildPrintDoc() {
+  const inner = buildShoppingInner();
+  return '<!DOCTYPE html><html lang="nl"><head><meta charset="utf-8"><title>Boodschappenlijstje</title><style>' +
+    'body{font-family:Arial,Helvetica,sans-serif;color:#111;max-width:600px;margin:24px auto;padding:0 18px;}' +
+    'h1{font-family:Georgia,serif;color:#063A35;font-size:26px;margin:0 0 4px;}' +
+    '.pdate{color:#666;margin:0 0 18px;font-size:13px;}' +
+    'h2{color:#A8752D;font-size:16px;margin:18px 0 6px;border-bottom:1px solid #ccc;padding-bottom:3px;}' +
+    'ul{list-style:none;padding:0;margin:0;}' +
+    'li{display:flex;align-items:center;gap:10px;font-size:15px;padding:5px 0;}' +
+    '.pbox{width:15px;height:15px;border:1.4px solid #333;border-radius:3px;display:inline-block;flex:0 0 auto;}' +
+    '@media print{.noprint{display:none;}}' +
+    '.noprint{margin:24px 0 0;}' +
+    'button{font-size:15px;padding:11px 18px;border:none;border-radius:9px;background:#063A35;color:#fff;cursor:pointer;}' +
+    '</style></head><body>' + inner +
+    '<div class="noprint"><button onclick="window.print()">Printen / opslaan als PDF</button></div>' +
+    '<' + 'script>window.onload=function(){setTimeout(function(){try{window.print();}catch(e){}},350);};<' + '/script>' +
+    '</body></html>';
+}
+
+let printUrl = null;
+function openPrintOverlay() {
+  if (!cart.length) { showToast("Je lijstje is leeg"); return; }
+  document.getElementById("printContent").innerHTML = buildShoppingInner();
+  document.getElementById("printOverlay").classList.add("open");
+}
+function closePrintOverlay() { document.getElementById("printOverlay").classList.remove("open"); }
+function doPrint() { window.print(); }
+
+function openDrawer() { renderCart(); document.getElementById("drawer").classList.add("open"); document.getElementById("drawerOverlay").classList.add("open"); }
+function closeDrawer() { document.getElementById("drawer").classList.remove("open"); document.getElementById("drawerOverlay").classList.remove("open"); }
+
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById("toast");
+  t.textContent = msg; t.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove("show"), 2000);
+}
+
+updateBadge();
+renderCart();
+
+document.getElementById("search").addEventListener("input", e => { state.search = e.target.value; render(); });
+document.querySelectorAll("#cat-filters .chip").forEach(c => c.onclick = () => {
+  document.querySelectorAll("#cat-filters .chip").forEach(x => x.classList.remove("active"));
+  c.classList.add("active"); state.cat = c.dataset.cat; render();
+});
+document.querySelectorAll("#meal-filters .chip").forEach(c => c.onclick = () => {
+  document.querySelectorAll("#meal-filters .chip").forEach(x => x.classList.remove("active"));
+  c.classList.add("active"); state.meal = c.dataset.meal; render();
+});
+document.querySelectorAll("#time-filters .chip").forEach(c => c.onclick = () => {
+  document.querySelectorAll("#time-filters .chip").forEach(x => x.classList.remove("active"));
+  c.classList.add("active"); state.time = parseInt(c.dataset.time, 10); render();
+});
+
+render();
+</script>
+</body>
+</html>
