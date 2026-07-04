@@ -224,6 +224,20 @@
   .tag.meal { background: rgba(6,58,53,0.08); color: var(--primary); text-transform: capitalize; }
   .tag.rate { background: linear-gradient(180deg, #e6c079, var(--accent)); color: var(--primary); font-weight: 700; }
   .tag.cooked { background: rgba(6,58,53,0.08); color: var(--primary); }
+  .tag.kcal { background: rgba(200,155,94,0.22); color: var(--accent-dark); font-weight: 600; }
+
+  /* voedingswaarde-blok in popup */
+  .voeding-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 6px 0 8px;
+  }
+  .v-item {
+    background: rgba(6,58,53,0.035); border: 1px solid var(--line); border-radius: 10px;
+    padding: 10px 6px; text-align: center; display: flex; flex-direction: column; gap: 2px;
+  }
+  .v-num { font-weight: 700; color: var(--primary); font-size: 0.98rem; font-variant-numeric: tabular-nums; }
+  .v-lbl { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .v-note { font-size: 0.78rem; color: var(--muted); margin: 0 0 4px; }
+  @media (max-width: 480px) { .voeding-grid { grid-template-columns: repeat(2, 1fr); } }
   .empty { max-width: 1100px; margin: 40px auto; padding: 0 24px; color: var(--muted); text-align: center; }
   /* modal */
   .overlay {
@@ -549,7 +563,7 @@
     <div class="wrap">
       <div class="hdr-eyebrow">Keuken &middot; vegetarisch &amp; vis</div>
       <h1 class="hdr-title">Recepten<span class="accent">bibliotheek</span></h1>
-      <p>Gezonde gerechten, standaard voor 2 personen. <span class="version">v2.3</span></p>
+      <p>Gezonde gerechten, standaard voor 2 personen. <span class="version">v2.4</span></p>
     </div>
   </div>
 </header>
@@ -645,7 +659,7 @@
 
 <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
 
-<footer>Receptenbibliotheek GZ &middot; v2.3 &middot; recepten met bronvermelding</footer>
+<footer>Receptenbibliotheek GZ &middot; v2.4 &middot; recepten met bronvermelding</footer>
 
 <script>
 const recepten = [
@@ -687,6 +701,7 @@ const recepten = [
       "Laat uitlekken op keukenpapier.",
       "Dip: meng de yoghurt met knoflook, olijfolie, een snuf zout en de apart gehouden dille."
     ],
+    voeding: { kcal: 550, eiwit: 24, kh: 26, vet: 40, herkomst: "indicatie" },
     bestand: "mucver-turkse-courgette-pannenkoekjes.md",
     bronNaam: "Natuurlijk Turkije, Kabak Mücver",
     bronUrl: "https://natuurlijkturkije.nl/kabak-mucver-turkse-courgettekoekjes/"
@@ -721,6 +736,7 @@ const recepten = [
       "Giet de kokosmelk en het limoensap erbij en laat ongeveer 2 minuten pruttelen. Breng op smaak met rode peper en zout.",
       "Verdeel over 2 kommen en garneer met bosui en eventueel verse koriander."
     ],
+    voeding: { kcal: 300, eiwit: 5, kh: 12, vet: 24, herkomst: "indicatie", note: "zonder rijst" },
     bestand: "thaise-groene-groentecurry.md",
     bronNaam: "Uit Paulines Keuken, Thaise groene curry",
     bronUrl: "https://uitpaulineskeuken.nl/recept/thaise-groene-curry"
@@ -760,6 +776,7 @@ const recepten = [
       "Roer de spinazie erdoor en laat slinken.",
       "Serveer met verse koriander en een partje limoen, eventueel met rijst of naan."
     ],
+    voeding: { kcal: 260, eiwit: 6, kh: 13, vet: 16, herkomst: "indicatie", note: "zonder rijst of naan" },
     bestand: "kikkererwtencurry-met-spinazie.md",
     bronNaam: "Mind Your Feed, Kikkererwten curry met spinazie",
     bronUrl: "https://www.mindyourfeed.nl/recepten/diner/kikkererwten-curry-met-spinazie/"
@@ -799,6 +816,7 @@ const recepten = [
       "Bak de halloumi in 1 el olijfolie goudbruin.",
       "Giet de couscous af, spoel koud, meng met dressing en peterselie. Voeg groenten en halloumi toe, breng op smaak en besprenkel met de resterende honing."
     ],
+    voeding: { kcal: 900, eiwit: 35, kh: 75, vet: 48, herkomst: "indicatie" },
     bestand: "parelcouscous-met-geroosterde-groenten-en-halloumi.md",
     bronNaam: "Weekmenus.be, Parelcouscous met geroosterde groenten en halloumi",
     bronUrl: "https://weekmenus.be/parelcouscous-met-geroosterde-groenten-en-halloumi/"
@@ -830,6 +848,7 @@ const recepten = [
       "Bak de zalm ongeveer 10 tot 12 minuten tot hij gaar en goudbruin is.",
       "Strooi vlak voor het serveren verse dille of peterselie erover."
     ],
+    voeding: { kcal: 380, eiwit: 25, kh: 18, vet: 22, herkomst: "indicatie", note: "zonder bijgerechten" },
     bestand: "zalm-uit-de-oven-honing-mosterd.md",
     bronNaam: "Lekker en Simpel, Honing mosterd zalm uit de oven",
     bronUrl: "https://www.lekkerensimpel.com/honing-mosterd-zalm-uit-de-oven/"
@@ -864,6 +883,7 @@ const recepten = [
       "Leg op iedere filet een schijfje citroen en bak 12 tot 15 minuten, tot een kerntemperatuur van 65 tot 70 °C.",
       "Bestrooi met de kruiden en verdeel vlak voor het serveren de resterende boter erover."
     ],
+    voeding: { kcal: 220, eiwit: 26, kh: 2, vet: 11, herkomst: "indicatie", note: "zonder bijgerechten" },
     bestand: "kabeljauw-uit-de-oven-met-citroen.md",
     bronNaam: "Lekker Tafelen, Kabeljauw met citroen uit de oven",
     bronUrl: "https://lekkertafelen.nl/recept/kabeljauw-met-citroen-uit-de-oven/"
@@ -894,6 +914,7 @@ const recepten = [
       "Bak de garnalen 3 tot 4 minuten tot ze roze en gaar zijn. Roer regelmatig en bak ze niet te lang, anders worden ze taai.",
       "Schep in kommetjes en bestrooi met verse peterselie."
     ],
+    voeding: { kcal: 320, eiwit: 20, kh: 2, vet: 26, herkomst: "indicatie", note: "zonder stokbrood" },
     bestand: "knoflookgambas-gambas-al-ajillo.md",
     bronNaam: "Leuke Recepten, Garnalen in knoflook (gambas al ajillo)",
     bronUrl: "https://www.leukerecepten.nl/recepten/garnalen-in-knoflook-gambas-al-ajillo/"
@@ -924,6 +945,7 @@ const recepten = [
       "Halveer de avocado's, verwijder de pit en schep het vruchtvlees in een kom. Prak tot een smeuïge massa en breng op smaak met citroensap, zout en peper.",
       "Besmeer de toast royaal met de avocado, leg de eierschijfjes erop en bestrooi met sesamzaad en chilivlokken."
     ],
+    voeding: { kcal: 560, eiwit: 20, kh: 35, vet: 37, herkomst: "indicatie" },
     bestand: "avocado-ei-op-toast.md",
     bronNaam: "GezondWeekmenu, Avocado toast met ei",
     bronUrl: "https://gezondweekmenu.nl/avocado-toast-met-ei/"
@@ -953,6 +975,7 @@ const recepten = [
       "Besmeer de buitenkant met roomboter, margarine of mayonaise.",
       "Bak de tosti goudbruin en knapperig op middelhoog vuur in een koekenpan, tosti-ijzer, airfryer of oven."
     ],
+    voeding: { kcal: 530, eiwit: 22, kh: 32, vet: 33, herkomst: "indicatie" },
     bestand: "tosti-met-kaas-en-pesto.md",
     bronNaam: "KeukenLiefde, Tosti met kaas en pesto",
     bronUrl: "https://www.keukenliefde.nl/recepten/tosti-met-kaas-en-pesto/"
@@ -983,6 +1006,7 @@ const recepten = [
       "Breng op smaak met peper en een scheutje citroensap.",
       "Rol de wraps strak op en snijd elke wrap doormidden."
     ],
+    voeding: { kcal: 345, eiwit: 16, kh: 32, vet: 15, herkomst: "indicatie" },
     bestand: "wrap-met-gerookte-zalm-en-roomkaas.md",
     bronNaam: "FoodStyle, Wraps zalm roomkaas en rucola",
     bronUrl: "https://foodstyle.nl/zalm-wraps-met-roomkaas-en-rucola/"
@@ -1017,6 +1041,7 @@ const recepten = [
       "Verdeel de walnoten, granaatappelpitjes en appel over de salade.",
       "Verkruimel de geitenkaas erover en serveer."
     ],
+    voeding: { kcal: 500, eiwit: 13, kh: 22, vet: 38, herkomst: "indicatie" },
     bestand: "salade-geitenkaas-walnoot-honing.md",
     bronNaam: "Lekker en Simpel, Salade met geitenkaas, walnoten en honing",
     bronUrl: "https://www.lekkerensimpel.com/salade-met-geitenkaas/"
@@ -1048,6 +1073,7 @@ const recepten = [
       "Schuif de gebakken eieren voorzichtig op het belegde brood; de warmte laat de kaas licht smelten.",
       "Hak de peterselie fijn en strooi erover."
     ],
+    voeding: { kcal: 620, eiwit: 30, kh: 38, vet: 38, herkomst: "bron" },
     bestand: "uitsmijter-met-kaas.md",
     bronNaam: "Leuke Recepten, Uitsmijter",
     bronUrl: "https://www.leukerecepten.nl/recepten/uitsmijter/"
@@ -1078,6 +1104,7 @@ const recepten = [
       "Beleg afwisselend met brie en appel, begin en eindig met brie. Verdeel de walnoten erover.",
       "Leg de bovenkant erop, druk licht aan en bak nog ongeveer 5 minuten tot de brie begint te smelten."
     ],
+    voeding: { kcal: 460, eiwit: 13, kh: 45, vet: 22, herkomst: "indicatie" },
     bestand: "broodje-brie-met-appel-honing-walnoot.md",
     bronNaam: "Eetman, Broodjes brie met appel, walnoten en honing",
     bronUrl: "https://www.eetman.nl/broodjes-brie-met-appel/"
@@ -1113,6 +1140,7 @@ const recepten = [
       "Beleg het roggebrood met avocado en schep de makreelsalade erop.",
       "Snijd de radijs in plakjes, hak de bieslook fijn en garneer alles ermee."
     ],
+    voeding: { kcal: 440, eiwit: 13, kh: 25, vet: 30, herkomst: "indicatie" },
     bestand: "roggebrood-met-makreelsalade.md",
     bronNaam: "Food Places, Roggebrood met makreelsalade",
     bronUrl: "https://food-places.nl/roggebrood-met-makreelsalade/"
@@ -1143,6 +1171,7 @@ const recepten = [
       "Veeg de pan schoon, verhit opnieuw wat olie en giet het mengsel terug. Bak met de deksel erop ongeveer 8 minuten op laag vuur tot het ei gestold is.",
       "Keer de tortilla om en bak de andere kant nog ongeveer 5 minuten goudbruin. Snijd in punten."
     ],
+    voeding: { kcal: 540, eiwit: 17, kh: 42, vet: 30, herkomst: "indicatie" },
     bestand: "spaanse-aardappeltortilla.md",
     bronNaam: "Leuke Recepten, Spaanse aardappeltortilla",
     bronUrl: "https://www.leukerecepten.nl/recepten/spaanse-aardappeltortilla/"
@@ -1173,6 +1202,7 @@ const recepten = [
       "Maak in een apart pannetje de saus: doe de grove mosterd erin, giet de room en 1 el citroensap erbij en rasp de schil van een halve citroen erover. Laat kort pruttelen.",
       "Serveer de krokante zeebaars met de citroen-mosterdsaus erover en de tuinkers."
     ],
+    voeding: { kcal: 460, eiwit: 25, kh: 8, vet: 35, herkomst: "indicatie", note: "zonder bijgerechten" },
     bestand: "zeebaars-met-citroen-mosterdsaus.md",
     bronNaam: "The Lemon Kitchen, Op de huid gebakken zeebaars met citroen-mosterdsaus",
     bronUrl: "https://www.thelemonkitchen.nl/op-de-huid-gebakken-zeebaars-met-citroen-mosterdsaus/"
@@ -1207,6 +1237,7 @@ const recepten = [
       "Haal de risotto van het vuur en roer de doperwten erdoor.",
       "Breng op smaak met peper, roer de resterende 5 g boter en de Parmezaan erdoor en maak af met een klein beetje citroensap."
     ],
+    voeding: { kcal: 580, eiwit: 14, kh: 85, vet: 15, herkomst: "indicatie" },
     bestand: "doperwtenrisotto.md",
     bronNaam: "Alles over Italiaanse eten, Risotto met doperwten",
     bronUrl: "https://www.allesoveritaliaanseten.nl/recepten/risotto-met-doperwten/"
@@ -1243,6 +1274,7 @@ const recepten = [
       "Verdeel de vulling erover en dek af met nog 5 vellen filodeeg, elk weer met boter of olie bestreken (ook de bovenkant).",
       "Bak 30 tot 35 minuten tot de taart goudbruin en knapperig is."
     ],
+    voeding: { kcal: 560, eiwit: 16, kh: 52, vet: 30, herkomst: "indicatie" },
     bestand: "spanakopita.md",
     bronNaam: "Lekker en Simpel, Spanakopita",
     bronUrl: "https://www.lekkerensimpel.com/spanakopita/"
@@ -1273,6 +1305,7 @@ const recepten = [
       "Snijd de afgebakken pitabroodjes open.",
       "Vul de broodjes met falafel, komkommer, feta, tzatziki en eventueel wat tomaat. Serveer direct."
     ],
+    voeding: { kcal: 840, eiwit: 26, kh: 78, vet: 44, herkomst: "indicatie" },
     bestand: "pitabroodjes-met-falafel.md",
     bronNaam: "Lekker en Simpel, Pitabroodjes met falafel en feta",
     bronUrl: "https://www.lekkerensimpel.com/pitabroodjes-met-falafel-en-feta/"
@@ -1305,6 +1338,7 @@ const recepten = [
       "Roer de mais erdoor.",
       "Leg eventueel wat rucola op het brood en verdeel de tonijnsalade erop."
     ],
+    voeding: { kcal: 260, eiwit: 13, kh: 36, vet: 6, herkomst: "indicatie" },
     bestand: "broodje-tonijnsalade.md",
     bronNaam: "Lekker en Simpel, Broodje tonijnsalade",
     bronUrl: "https://www.lekkerensimpel.com/broodje-tonijnsalade/"
@@ -1460,6 +1494,7 @@ function render() {
     const m = getMeta(r.id);
     const rateBadge = m.rating !== null ? `<span class="card-rating">★ ${m.rating}</span>` : "";
     const countTag = m.count ? `<span class="tag cooked">${m.count}× gemaakt</span>` : "";
+    const kcalTag = r.voeding ? `<span class="tag kcal">${r.voeding.herkomst === "bron" ? "" : "≈ "}${r.voeding.kcal} kcal</span>` : "";
     const maaltijd = r.maaltijd || "avondeten";
     card.innerHTML = `
       <div class="card-corner">
@@ -1472,7 +1507,7 @@ function render() {
         <span class="tag meal">${maaltijd}</span>
         <span class="tag">${r.categorie}</span>
         <span class="tag time">${r.tijd} min</span>
-        ${countTag}${gardenTag}${eigenTag}
+        ${kcalTag}${countTag}${gardenTag}${eigenTag}
       </div>`;
     attachTilt(card);
     grid.appendChild(card);
@@ -1500,6 +1535,19 @@ function openModal(id) {
   const garden = r.moestuin ? `<div class="garden-note">🌱 Uit eigen moestuin mogelijk: ${r.moestuin}</div>` : "";
   const imgHtml = r.image ? `<img class="modal-img" src="${r.image}" alt="Foto bij ${r.titel}">` : "";
   const meta = getMeta(r.id);
+  const v = r.voeding;
+  const isBron = v && v.herkomst === "bron";
+  const pfx = isBron ? "" : "≈ ";
+  const vNote = v && v.note ? ", " + v.note : "";
+  const voedingBlock = v ? `
+    <h4>Voedingswaarde per portie</h4>
+    <div class="voeding-grid">
+      <div class="v-item"><span class="v-num">${pfx}${v.kcal}</span><span class="v-lbl">kcal</span></div>
+      <div class="v-item"><span class="v-num">${pfx}${v.eiwit} g</span><span class="v-lbl">eiwit</span></div>
+      <div class="v-item"><span class="v-num">${pfx}${v.kh} g</span><span class="v-lbl">koolhydraten</span></div>
+      <div class="v-item"><span class="v-num">${pfx}${v.vet} g</span><span class="v-lbl">vet</span></div>
+    </div>
+    <p class="v-note">${isBron ? "Volgens de bron" : "≈ Indicatie, berekend uit de ingrediënten"}${vNote}.</p>` : "";
   const rateValTxt = meta.rating !== null ? meta.rating + "/10" : "nog geen";
   const rateBlock = `
     <h4>Gegeten &amp; beoordeeld</h4>
@@ -1541,6 +1589,7 @@ function openModal(id) {
     <button class="add-all" onclick="addAll('${r.id}')">Alles op de lijst</button>
     <h4>Bereiding</h4>
     <ol>${stap}</ol>
+    ${voedingBlock}
     ${rateBlock}
     ${srcHtml}`;
   document.getElementById("overlay").classList.add("open");
