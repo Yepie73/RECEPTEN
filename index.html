@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="nl">
 <head>
 <meta charset="UTF-8">
@@ -563,7 +563,7 @@
     <div class="wrap">
       <div class="hdr-eyebrow">Keuken &middot; vegetarisch &amp; vis</div>
       <h1 class="hdr-title">Recepten<span class="accent">bibliotheek</span></h1>
-      <p>Gezonde gerechten, standaard voor 2 personen. <span class="version">v2.4</span></p>
+      <p>Gezonde gerechten, standaard voor 2 personen. <span class="version">v2.5</span></p>
     </div>
   </div>
 </header>
@@ -659,7 +659,7 @@
 
 <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
 
-<footer>Receptenbibliotheek GZ &middot; v2.4 &middot; recepten met bronvermelding</footer>
+<footer>Receptenbibliotheek GZ &middot; v2.5 &middot; recepten met bronvermelding</footer>
 
 <script>
 const recepten = [
@@ -1471,15 +1471,23 @@ function attachTilt(card) {
   document.addEventListener("mouseenter", () => { ring.style.opacity = ""; });
 })();
 
+function normTxt(s) {
+  // kleine letters en accenten weg (ü -> u, é -> e), zodat zoeken soepel matcht
+  return (s || "").toString().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
 function render() {
-  const q = state.search.toLowerCase();
+  const q = normTxt(state.search.trim());
   const list = allRecepten().filter(r => {
     if (hiddenIds.includes(r.id)) return false;
     if (state.cat !== "alle" && r.categorie !== state.cat) return false;
     if (state.meal !== "alle" && (r.maaltijd || "avondeten") !== state.meal) return false;
     if (state.time > 0 && r.tijd > state.time) return false;
     if (q) {
-      const hay = (r.titel + " " + r.omschrijving + " " + r.tags.join(" ") + " " + r.ingredienten.join(" ")).toLowerCase();
+      const hay = normTxt([
+        r.titel, r.omschrijving, r.categorie, r.maaltijd || "avondeten",
+        r.moestuin, r.seizoen, (r.tags || []).join(" "), (r.ingredienten || []).join(" ")
+      ].join(" "));
       if (!hay.includes(q)) return false;
     }
     return true;
