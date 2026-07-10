@@ -563,7 +563,7 @@
     <div class="wrap">
       <div class="hdr-eyebrow">Keuken &middot; vegetarisch &amp; vis</div>
       <h1 class="hdr-title">Recepten<span class="accent">bibliotheek</span></h1>
-      <p>Gezonde gerechten, standaard voor 2 personen. <span class="version">v2.5</span></p>
+      <p>Gezonde gerechten, standaard voor 2 personen. <span class="version">v2.8</span></p>
     </div>
   </div>
 </header>
@@ -579,6 +579,7 @@
     <span class="chip active" data-meal="alle">Alle maaltijden</span>
     <span class="chip" data-meal="lunch">Lunch</span>
     <span class="chip" data-meal="avondeten">Avondeten</span>
+    <span class="chip" data-meal="dessert">Dessert</span>
   </div>
   <div class="filter-group" id="time-filters">
     <span class="chip active" data-time="0">Alle tijden</span>
@@ -627,7 +628,7 @@
         <select id="f-cat"><option value="vegetarisch">Vegetarisch</option><option value="vis">Vis</option></select>
       </label>
       <label class="f-label">Maaltijd
-        <select id="f-meal"><option value="avondeten">Avondeten</option><option value="lunch">Lunch</option></select>
+        <select id="f-meal"><option value="avondeten">Avondeten</option><option value="lunch">Lunch</option><option value="dessert">Dessert</option></select>
       </label>
       <label class="f-label">Tijd (min)<input id="f-tijd" type="number" min="1" value="20"></label>
     </div>
@@ -659,7 +660,7 @@
 
 <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
 
-<footer>Receptenbibliotheek GZ &middot; v2.5 &middot; recepten met bronvermelding</footer>
+<footer>Receptenbibliotheek GZ &middot; v2.8 &middot; recepten met bronvermelding</footer>
 
 <script>
 const recepten = [
@@ -1342,6 +1343,433 @@ const recepten = [
     bestand: "broodje-tonijnsalade.md",
     bronNaam: "Lekker en Simpel, Broodje tonijnsalade",
     bronUrl: "https://www.lekkerensimpel.com/broodje-tonijnsalade/"
+  },
+  {
+    id: "spaghetti-citroen-ricotta",
+    titel: "Spaghetti met citroen-ricottasaus en spinazie",
+    categorie: "vegetarisch",
+    maaltijd: "avondeten",
+    personen: 2,
+    tijd: 20,
+    seizoen: "hele jaar",
+    omschrijving: "Snelle doordeweekse pasta met romige citroen-ricottasaus, verse spinazie en krokant kruidenkruim.",
+    tags: ["pasta", "Italiaans", "snel"],
+    moestuin: "spinazie",
+    ingredienten: [
+      "125 g spaghetti",
+      "125 g verse bladspinazie",
+      "75 g ricotta",
+      "½ citroen (rasp en sap)",
+      "1 teen knoflook",
+      "½ el Italiaanse kruiden",
+      "25 g paneermeel",
+      "25 g Parmezaanse kaas",
+      "Klontje boter en scheutje olijfolie",
+      "Peper en zout"
+    ],
+    stappen: [
+      "Kook de spaghetti al dente volgens de verpakking. Bewaar voor het afgieten een half kopje pastawater en meng de pasta met een scheutje olijfolie.",
+      "Rooster intussen het paneermeel met de Italiaanse kruiden in een klontje boter goudbruin. Schep uit de pan en zet apart.",
+      "Fruit de fijngesneden knoflook in dezelfde pan en voeg de spinazie in delen toe tot alles geslonken is.",
+      "Voeg citroensap, citroenrasp en de ricotta toe en roer tot een romige saus. Breng op smaak met peper en zout.",
+      "Voeg de pasta met een scheut pastawater toe en meng goed; het pastawater maakt de saus smeuïg.",
+      "Roer de Parmezaanse kaas erdoor en serveer met het krokante kruidenkruim erover."
+    ],
+    voeding: { kcal: 470, eiwit: 20, kh: 56, vet: 18, herkomst: "indicatie" },
+    bestand: "spaghetti-citroen-ricotta-spinazie.md",
+    bronNaam: "Food by Cris, Spaghetti met spinazie en romige citroen ricotta saus",
+    bronUrl: "https://www.foodbycris.nl/recepten1/spaghetti-met-spinazie-en-romige-citroen-ricotta-saus/"
+  },
+  {
+    id: "misonoedels-pindasaus",
+    titel: "Misonoedels met groenten in pindasaus",
+    categorie: "vegetarisch",
+    maaltijd: "avondeten",
+    personen: 2,
+    tijd: 20,
+    seizoen: "hele jaar",
+    omschrijving: "Snelle wok van ramennoedels en knapperige groenten in een hartige pindasaus met miso en sesam.",
+    tags: ["noedels", "Aziatisch", "wok", "snel"],
+    moestuin: "eventueel extra groente (doperwten)",
+    ingredienten: [
+      "150 g instant ramennoedels",
+      "100 g paksoi",
+      "1 ui",
+      "½ wortel",
+      "30 g gepelde edamame",
+      "1 teen knoflook",
+      "2 tl geroosterde sesamolie",
+      "2 el ongezouten pinda's",
+      "1 lente-ui, voor garnering",
+      "Voor de pindasaus:",
+      "1 el pindakaas",
+      "2 tl sojasaus",
+      "1 tl misopasta",
+      "¼ tl chilipoeder",
+      "1 el citroensap",
+      "1 tl suiker",
+      "60 ml water"
+    ],
+    stappen: [
+      "Kook de noedels volgens de verpakking en giet af.",
+      "Snijd de paksoi, ui, wortel en knoflook fijn en roerbak ze 2 minuten in de sesamolie.",
+      "Roer intussen alle sausingrediënten in een kom tot een gladde saus.",
+      "Voeg de saus toe aan de pan met groenten en laat even warm worden.",
+      "Voeg de noedels toe en meng alles goed door elkaar.",
+      "Hak de pinda's en snijd de lente-ui in ringetjes. Verdeel over twee kommen en bestrooi met lente-ui en pinda's."
+    ],
+    voeding: { kcal: 524, eiwit: 20, kh: 68, vet: 15, herkomst: "bron" },
+    bestand: "misonoedels-met-groenten-in-pindasaus.md",
+    bronNaam: "Kikkoman Nederland, Misonoodles met groenten in pindasaus",
+    bronUrl: "https://www.kikkoman.nl/recepten/detail/misonoodles-met-groenten-in-pindasaus"
+  },
+  {
+    id: "chocolademousse",
+    titel: "Klassieke chocolademousse",
+    categorie: "vegetarisch",
+    maaltijd: "dessert",
+    personen: 2,
+    tijd: 20,
+    seizoen: "hele jaar",
+    omschrijving: "Luchtige Franse chocolademousse van pure chocolade en ei, zonder room. Minimaal 3 uur koelen; bevat rauw ei.",
+    tags: ["dessert", "zoet", "chocolade", "Frans"],
+    moestuin: "vers fruit als garnering (aardbeien, aalbessen, kersen)",
+    ingredienten: [
+      "65 g pure chocolade (55 tot 60% cacao), grof gehakt",
+      "2 eieren, gesplitst (zo vers mogelijk)",
+      "2 tl suiker",
+      "Snuf zout"
+    ],
+    stappen: [
+      "Smelt de chocolade au bain-marie of in de magnetron; roer regelmatig.",
+      "Klop de eiwitten in een vetvrije kom met het zout schuimig. Voeg de suiker geleidelijk toe en klop tot stijve pieken.",
+      "Roer de eidooiers door de gesmolten, iets afgekoelde chocolade.",
+      "Spatel eerst de helft van het eiwitschuim door het chocolademengsel, daarna voorzichtig de rest.",
+      "Verdeel over twee glaasjes en laat minimaal 3 uur opstijven in de koelkast.",
+      "Serveer eventueel met slagroom of vers rood fruit. Gekoeld maximaal 1 tot 2 dagen houdbaar (rauw ei)."
+    ],
+    voeding: { kcal: 260, eiwit: 8, kh: 19, vet: 17, herkomst: "indicatie" },
+    bestand: "chocolademousse-klassiek.md",
+    bronNaam: "Rutger Bakt, Chocolademousse recept",
+    bronUrl: "https://rutgerbakt.nl/dessert-recepten/pure-chocolademousse-recept/"
+  },
+  {
+    id: "panna-cotta-rood-fruit",
+    titel: "Panna cotta met rood fruit",
+    categorie: "vegetarisch",
+    maaltijd: "dessert",
+    personen: 2,
+    tijd: 15,
+    seizoen: "zomer",
+    omschrijving: "Zijdezacht Italiaans roomtoetje met vanille, roodfruitcompote en vers fruit. Makkelijk vooraf te maken; bevat gelatine.",
+    tags: ["dessert", "zoet", "Italiaans", "rood fruit"],
+    moestuin: "aardbeien, aalbessen, kersen",
+    ingredienten: [
+      "Voor de panna cotta:",
+      "2 blaadjes gelatine",
+      "250 ml slagroom",
+      "1 tl vanille-extract",
+      "25 g fijne kristalsuiker",
+      "Voor de roodfruitcompote:",
+      "100 g rood fruit (vers of diepvries)",
+      "2 el water",
+      "1 el suiker",
+      "Voor de decoratie:",
+      "50 g vers rood fruit"
+    ],
+    stappen: [
+      "Week de gelatineblaadjes ongeveer 5 minuten in koud water.",
+      "Verwarm de slagroom met het vanille-extract en de suiker; roer tot de suiker is opgelost en haal de pan van het vuur zodra de room tegen de kook aan zit.",
+      "Knijp de gelatine uit en roer door de warme room tot hij is opgelost.",
+      "Verdeel over twee glaasjes en laat minimaal 3 uur opstijven in de koelkast.",
+      "Compote: verwarm het rode fruit met water en suiker op laag vuur, prak of pureer naar wens en laat afkoelen.",
+      "Schep de compote op de panna cotta en garneer met vers fruit. Afgedekt 2 tot 3 dagen houdbaar."
+    ],
+    voeding: { kcal: 515, eiwit: 3, kh: 27, vet: 45, herkomst: "indicatie" },
+    bestand: "panna-cotta-met-rood-fruit.md",
+    bronNaam: "Laura's Bakery, Klassieke panna cotta met rood fruit",
+    bronUrl: "https://www.laurasbakery.nl/rood-fruit-panna-cotta/"
+  },
+  {
+    id: "appel-roodfruitcrumble",
+    titel: "Appelcrumble met rood fruit en vanillesaus",
+    categorie: "vegetarisch",
+    maaltijd: "dessert",
+    personen: 2,
+    tijd: 50,
+    seizoen: "zomer en herfst",
+    omschrijving: "Warme crumble met appel en rood fruit onder knapperig kruim, geserveerd met zelfgemaakte warme vanillesaus. Ideaal voor eigen oogst.",
+    tags: ["dessert", "zoet", "oven", "fruit", "vanillesaus"],
+    moestuin: "appels, aardbeien, aalbessen, kersen",
+    ingredienten: [
+      "Voor de vulling:",
+      "2 grote appels (circa 250 g schoongemaakt), bij voorkeur goudreinet",
+      "125 g gemengd rood fruit (vers of diepvries)",
+      "15 g suiker",
+      "½ el maizena",
+      "Voor het kruimeldeeg:",
+      "50 g bloem",
+      "50 g koude boter, in blokjes",
+      "50 g suiker",
+      "15 g havermout",
+      "15 g amandelmeel",
+      "Snuf zout",
+      "Voor de vanillesaus:",
+      "¼ vanillestokje",
+      "125 ml slagroom",
+      "50 ml volle melk",
+      "2 eidooiers (maat M)",
+      "30 g suiker"
+    ],
+    stappen: [
+      "Verwarm de oven voor op 200 °C.",
+      "Schil de appels, verwijder de klokhuizen en snijd ze in kleine blokjes.",
+      "Meng appel, rood fruit, suiker en maizena en doe alles in een ingevette kleine ovenschaal.",
+      "Meng bloem, suiker, havermout, amandelmeel en zout. Wrijf de koude boter erdoor tot een kruimelig deeg.",
+      "Verdeel het kruim over het fruit.",
+      "Bak 30 tot 40 minuten tot het kruim goudbruin is en het fruitsap bubbelt.",
+      "Vanillesaus (tijdens het bakken): breng de slagroom met het vanillemerg en het stokje aan de kook. Klop melk, eidooiers en suiker door elkaar en giet de kokende room er al roerend in een dunne straal bij.",
+      "Doe alles terug in de pan en verwarm al roerend op laag vuur tot de saus bindt (circa 82 °C); niet laten koken. Zeef de saus en serveer warm over de crumble."
+    ],
+    voeding: { kcal: 810, eiwit: 9, kh: 92, vet: 45, herkomst: "indicatie" },
+    bestand: "appel-roodfruitcrumble.md",
+    bronNaam: "Koken met Karin, Appelcrumble met rood fruit",
+    bronUrl: "https://www.kokenmetkarin.nl/2025/02/07/appelcrumble-met-rood-fruit/"
+  },
+  {
+    id: "tiramisu",
+    titel: "Klassieke tiramisu",
+    categorie: "vegetarisch",
+    maaltijd: "dessert",
+    personen: 2,
+    tijd: 30,
+    seizoen: "hele jaar",
+    omschrijving: "Italiaanse klassieker met in koffie gedoopte lange vingers en luchtige mascarponecrème. Minimaal 4 uur koelen; bevat rauw ei.",
+    tags: ["dessert", "zoet", "Italiaans", "koffie"],
+    moestuin: "",
+    ingredienten: [
+      "2 eidooiers",
+      "55 g suiker",
+      "250 g mascarpone, op kamertemperatuur",
+      "2 eiwitten",
+      "Snuf zout",
+      "100 ml espresso (afgekoeld)",
+      "25 ml amaretto, marsala of cognac (optioneel)",
+      "100 à 125 g lange vingers",
+      "Cacaopoeder, om te bestuiven"
+    ],
+    stappen: [
+      "Klop de eidooiers met de helft van de suiker in ongeveer 5 minuten romig. Mix de mascarpone erdoor tot een gladde crème.",
+      "Klop de eiwitten met het zout stijf, voeg geleidelijk de rest van de suiker toe en spatel het schuim door het mascarponemengsel.",
+      "Meng de espresso met de likeur en doop de lange vingers er één voor één kort in.",
+      "Verdeel een laag lange vingers over glaasjes of een kleine schaal, dan de helft van de crème. Herhaal.",
+      "Laat minimaal 4 uur, liefst een nacht, opstijven in de koelkast.",
+      "Bestuif vlak voor serveren royaal met cacao. Gekoeld maximaal 2 dagen houdbaar (rauw ei)."
+    ],
+    voeding: { kcal: 480, eiwit: 8, kh: 40, vet: 30, herkomst: "indicatie" },
+    bestand: "tiramisu-klassiek.md",
+    bronNaam: "Rutger Bakt, Klassieke tiramisu recept",
+    bronUrl: "https://rutgerbakt.nl/dessert-recepten/klassieke-tiramisu-recept/"
+  },
+  {
+    id: "creme-brulee",
+    titel: "Klassieke crème brûlée",
+    categorie: "vegetarisch",
+    maaltijd: "dessert",
+    personen: 2,
+    tijd: 50,
+    seizoen: "hele jaar",
+    omschrijving: "Romige Franse vanillecustard uit de oven met krokant gebrand suikerlaagje. Vooraf te maken; keukenbrander nodig.",
+    tags: ["dessert", "zoet", "Frans", "oven"],
+    moestuin: "vers fruit als garnering",
+    ingredienten: [
+      "2 eidooiers",
+      "200 ml slagroom",
+      "30 g suiker, plus 2 el fijne (riet)suiker voor het laagje",
+      "½ vanillestokje",
+      "Reepje schil van een biologische citroen"
+    ],
+    stappen: [
+      "Verwarm de oven voor op 155 °C.",
+      "Verwarm de slagroom tot tegen de kook aan. Voeg vanillemerg, het stokje en de citroenschil toe en laat 10 minuten zachtjes trekken zonder koken.",
+      "Klop de eidooiers met de 30 g suiker lichtgeel.",
+      "Verwijder schil en stokje, laat de room iets afkoelen en giet hem al kloppend langzaam bij de dooiers.",
+      "Zet twee ramekins in een ovenschaal, verdeel de custard en giet heet water in de schaal tot halverwege de ramekins.",
+      "Bak 25 tot 30 minuten (randen stevig, midden trilt licht). Laat afkoelen en koel minimaal 2 uur.",
+      "Bestrooi vlak voor serveren met fijne suiker en brand goudbruin met de keukenbrander."
+    ],
+    voeding: { kcal: 385, eiwit: 5, kh: 16, vet: 34, herkomst: "indicatie" },
+    bestand: "creme-brulee-klassiek.md",
+    bronNaam: "Leuke Recepten, Crème brûlée, klassiek recept",
+    bronUrl: "https://www.leukerecepten.nl/recepten/creme-brulee-recept/"
+  },
+  {
+    id: "lava-cakejes",
+    titel: "Chocolade lava cakejes (moelleux)",
+    categorie: "vegetarisch",
+    maaltijd: "dessert",
+    personen: 2,
+    tijd: 25,
+    seizoen: "hele jaar",
+    omschrijving: "Warme chocoladecakejes met een vloeibare kern. Het geheim zit in de baktijd: bovenkant droog, binnenkant nog zacht.",
+    tags: ["dessert", "zoet", "chocolade", "oven"],
+    moestuin: "aardbeien of aalbessen als garnering",
+    ingredienten: [
+      "50 g boter, plus extra om in te vetten",
+      "50 g pure chocolade",
+      "50 g bloem",
+      "50 g suiker",
+      "1 eidooier",
+      "1 ei",
+      "1 el cacaopoeder"
+    ],
+    stappen: [
+      "Verwarm de oven voor op 180 °C. Vet twee soufflépotjes in met boter en bestrooi met cacaopoeder.",
+      "Smelt de boter en chocolade au bain-marie en laat 10 minuten afkoelen.",
+      "Klop het ei, de eidooier en de suiker luchtig en voeg de gesmolten chocolade toe.",
+      "Zeef de bloem erboven en spatel voorzichtig door het beslag.",
+      "Verdeel over de potjes en bak 12 tot 15 minuten: bovenkant droog, midden wiebelt nog. Het verschil zit in één minuut.",
+      "Stort direct op een bord en serveer meteen, met slagroom of vanille-ijs."
+    ],
+    voeding: { kcal: 510, eiwit: 7, kh: 45, vet: 34, herkomst: "bron" },
+    bestand: "chocolade-lava-cakejes.md",
+    bronNaam: "Leuke Recepten, Chocolade lava cakes recept (moelleux)",
+    bronUrl: "https://www.leukerecepten.nl/recepten/lava-cake/"
+  },
+  {
+    id: "aardbeien-cheesecake-glaasje",
+    titel: "Aardbeien-cheesecake in een glaasje",
+    categorie: "vegetarisch",
+    maaltijd: "dessert",
+    personen: 2,
+    tijd: 20,
+    seizoen: "zomer",
+    omschrijving: "No-bake cheesecake in glaasjes: koekjesbodem, luchtige roomkaasvulling en verse aardbeien. Geen oven nodig.",
+    tags: ["dessert", "zoet", "no-bake", "aardbei"],
+    moestuin: "aardbeien",
+    ingredienten: [
+      "50 g koekjes (roomboterkoekjes of bastogne)",
+      "15 g roomboter",
+      "100 g monchou (roomkaas)",
+      "65 g slagroom (ongeklopt)",
+      "50 g aardbeien, plus 2 voor de garnering",
+      "1½ el fijne kristalsuiker",
+      "Verse munt, ter garnering"
+    ],
+    stappen: [
+      "Maal de koekjes fijn in een keukenmachine of sla ze fijn in een stevige zak.",
+      "Smelt de roomboter en meng door de koekkruimels.",
+      "Snijd de aardbeien in stukjes; houd er twee heel voor de decoratie.",
+      "Meng de monchou met de suiker en mix de slagroom erbij tot een romig geheel.",
+      "Spatel de aardbeistukjes luchtig door het roommengsel.",
+      "Verdeel de kruimels over twee glaasjes, schep het roommengsel erop en garneer met aardbei en munt. Even koelen maakt de vulling steviger."
+    ],
+    voeding: { kcal: 510, eiwit: 5, kh: 31, vet: 41, herkomst: "indicatie" },
+    bestand: "aardbeien-cheesecake-in-een-glaasje.md",
+    bronNaam: "De Kokende Zussen, Aardbeien cheesecake in een glaasje",
+    bronUrl: "https://www.dekokendezussen.nl/recepten/aardbeien-cheesecake-in-een-glaasje/"
+  },
+  {
+    id: "clafoutis-kersen",
+    titel: "Clafoutis met kersen",
+    categorie: "vegetarisch",
+    maaltijd: "dessert",
+    personen: 2,
+    tijd: 60,
+    seizoen: "zomer",
+    omschrijving: "Franse klassieker: kersen gebakken in een dun, custardachtig vanillebeslag. Lauwwarm op zijn lekkerst.",
+    tags: ["dessert", "zoet", "Frans", "oven", "kersen"],
+    moestuin: "kersen",
+    ingredienten: [
+      "⅓ vanillestokje",
+      "165 ml volle melk",
+      "15 g boter, plus extra om in te vetten",
+      "55 g bloem",
+      "50 g suiker",
+      "Snuf zout",
+      "2 eieren",
+      "Circa 300 g ontpitte kersen (vers of diepvries)",
+      "Poedersuiker, voor de afwerking",
+      "65 g crème fraîche, voor erbij"
+    ],
+    stappen: [
+      "Breng de melk met het vanillemerg en het stokje aan de kook, haal van het vuur en roer de boter erdoor. Laat afkoelen tot lauwwarm.",
+      "Verwarm de oven voor op 180 °C en vet een kleine ovenschaal (18 tot 20 cm) in.",
+      "Meng bloem, suiker en zout. Voeg de eieren toe en klop tot een glad beslag.",
+      "Verwijder het vanillestokje en klop de melk door het beslag tot er geen klontjes meer zijn.",
+      "Leg de kersen in de schaal en schenk het beslag erover tot ze bijna bedekt zijn.",
+      "Bak 35 tot 45 minuten tot de clafoutis gesouffleerd en lichtgoudbruin is. Serveer lauwwarm met poedersuiker en crème fraîche."
+    ],
+    voeding: { kcal: 280, eiwit: 5, kh: 36, vet: 10, herkomst: "indicatie" },
+    bestand: "clafoutis-met-kersen.md",
+    bronNaam: "Rutger Bakt, Clafoutis met kersen recept",
+    bronUrl: "https://rutgerbakt.nl/dessert-recepten/clafoutis-met-kersen/"
+  },
+  {
+    id: "lemon-posset",
+    titel: "Lemon posset",
+    categorie: "vegetarisch",
+    maaltijd: "dessert",
+    personen: 2,
+    tijd: 10,
+    seizoen: "hele jaar",
+    omschrijving: "Fris en romig Engels citroentoetje van drie basisingrediënten; dikt vanzelf in zonder gelatine of ei. Iets anders dan zoet alleen.",
+    tags: ["dessert", "fris", "citroen", "makkelijk"],
+    moestuin: "",
+    ingredienten: [
+      "Voor de posset:",
+      "200 ml slagroom (liefst double cream)",
+      "60 g fijne kristalsuiker",
+      "¼ tl vanille-extract",
+      "75 ml vers citroensap (2 à 3 citroenen), plus rasp",
+      "Voor de afwerking:",
+      "125 ml slagroom",
+      "15 g suiker",
+      "3 roomboterkoekjes (bijvoorbeeld sprits)",
+      "Rasp van ½ citroen en een takje munt"
+    ],
+    stappen: [
+      "Pers de citroenen tot 75 ml sap en zeef het.",
+      "Verwarm de 200 ml slagroom met de 60 g suiker en het vanille-extract tot de suiker is opgelost.",
+      "Laat afkoelen tot lauwwarm en roer het citroensap er geleidelijk door (in één keer kan schiften).",
+      "Schenk in twee glaasjes of uitgeholde citroenhelften en laat minimaal 3 uur (liefst 24 uur) opstijven in de koelkast.",
+      "Klop de 125 ml slagroom met de 15 g suiker tot zachte pieken en verkruimel de koekjes.",
+      "Werk af met slagroom, koekkruimels, citroenrasp en munt. Gekoeld 2 tot 3 dagen houdbaar."
+    ],
+    voeding: { kcal: 750, eiwit: 3, kh: 44, vet: 62, herkomst: "indicatie" },
+    bestand: "lemon-posset.md",
+    bronNaam: "Uit Paulines Keuken, Lemon posset",
+    bronUrl: "https://uitpaulineskeuken.nl/recept/lemon-posset/"
+  },
+  {
+    id: "gegrilde-perzik",
+    titel: "Gegrilde perzik met honing en ijs",
+    categorie: "vegetarisch",
+    maaltijd: "dessert",
+    personen: 2,
+    tijd: 20,
+    seizoen: "zomer",
+    omschrijving: "Warme, gekarameliseerde perzikhelften met vanille-ijs, honing en pistache. Licht zomers toetje van de grill of uit de grillpan.",
+    tags: ["dessert", "zoet", "fruit", "bbq", "glutenvrij"],
+    moestuin: "perzik",
+    ingredienten: [
+      "2 perziken",
+      "Scheutje olie of vloeibare boter",
+      "½ el honing, plus extra om te druppelen",
+      "1 el ongezouten pistachenoten, grof gehakt",
+      "2 bollen vanille-ijs"
+    ],
+    stappen: [
+      "Halveer de perziken en verwijder de pit.",
+      "Meng de olie of boter met de honing en bestrijk de snijkanten.",
+      "Gril de perziken met de snijkant naar beneden circa 5 minuten op een heet bbq-rooster of in een grillpan; plakken ze, geef ze dan nog even tot ze vanzelf loslaten.",
+      "Klaar als er grillstrepen zichtbaar zijn en ze iets zacht aanvoelen.",
+      "Serveer twee helften per bord met een bol ijs, extra honing en de pistachenoten. Lichter: Griekse yoghurt in plaats van ijs."
+    ],
+    voeding: { kcal: 150, eiwit: 2, kh: 22, vet: 6, herkomst: "bron" },
+    bestand: "gegrilde-perzik-met-honing-en-ijs.md",
+    bronNaam: "Leuke Recepten, Gegrilde perziken met ijs",
+    bronUrl: "https://www.leukerecepten.nl/recepten/gegrilde-perziken-met-ijs/"
   }
 ];
 
