@@ -563,7 +563,7 @@
     <div class="wrap">
       <div class="hdr-eyebrow">Keuken &middot; vegetarisch &amp; vis</div>
       <h1 class="hdr-title">Recepten<span class="accent">bibliotheek</span></h1>
-      <p>Gezonde gerechten, standaard voor 2 personen. <span class="version">v3.1</span></p>
+      <p>Gezonde gerechten, standaard voor 2 personen. <span class="version">v3.2</span></p>
     </div>
   </div>
 </header>
@@ -586,6 +586,12 @@
     <span class="chip active" data-time="0">Alle tijden</span>
     <span class="chip" data-time="30">&le; 30 min</span>
     <span class="chip" data-time="45">&le; 45 min</span>
+  </div>
+  <div class="filter-group" id="kcal-filters">
+    <span class="chip active" data-kcal="0">Alle kcal</span>
+    <span class="chip" data-kcal="300">&le; 300 kcal</span>
+    <span class="chip" data-kcal="500">&le; 500 kcal</span>
+    <span class="chip" data-kcal="700">&le; 700 kcal</span>
   </div>
   <button class="add-recipe-btn" onclick="openRecipeForm()">+ Eigen recept</button>
   <button class="restore-btn" id="restoreBtn" onclick="restoreHidden()" style="display:none;"></button>
@@ -661,7 +667,7 @@
 
 <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
 
-<footer>Receptenbibliotheek GZ &middot; v3.1 &middot; recepten met bronvermelding</footer>
+<footer>Receptenbibliotheek GZ &middot; v3.2 &middot; recepten met bronvermelding</footer>
 
 <script>
 const recepten = [
@@ -2311,7 +2317,7 @@ const recepten = [
   }
 ];
 
-const state = { search: "", cat: "alle", meal: "alle", time: 0 };
+const state = { search: "", cat: "alle", meal: "alle", time: 0, kcal: 0 };
 
 /* ---------- eigen recepten (per apparaat, localStorage) ---------- */
 let userRecepten = loadUserRecepten();
@@ -2449,6 +2455,7 @@ function render() {
     if (state.cat !== "alle" && r.categorie !== state.cat) return false;
     if (state.meal !== "alle" && (r.maaltijd || "avondeten") !== state.meal) return false;
     if (state.time > 0 && r.tijd > state.time) return false;
+    if (state.kcal > 0 && (!r.voeding || r.voeding.kcal > state.kcal)) return false;
     if (q) {
       const hay = normTxt([
         r.titel, r.omschrijving, r.categorie, r.maaltijd || "avondeten",
@@ -2876,6 +2883,10 @@ document.querySelectorAll("#meal-filters .chip").forEach(c => c.onclick = () => 
 document.querySelectorAll("#time-filters .chip").forEach(c => c.onclick = () => {
   document.querySelectorAll("#time-filters .chip").forEach(x => x.classList.remove("active"));
   c.classList.add("active"); state.time = parseInt(c.dataset.time, 10); render();
+});
+document.querySelectorAll("#kcal-filters .chip").forEach(c => c.onclick = () => {
+  document.querySelectorAll("#kcal-filters .chip").forEach(x => x.classList.remove("active"));
+  c.classList.add("active"); state.kcal = parseInt(c.dataset.kcal, 10); render();
 });
 
 render();
