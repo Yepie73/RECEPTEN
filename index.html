@@ -563,7 +563,7 @@
     <div class="wrap">
       <div class="hdr-eyebrow">Keuken &middot; vegetarisch &amp; vis</div>
       <h1 class="hdr-title">Recepten<span class="accent">bibliotheek</span></h1>
-      <p>Gezonde gerechten, standaard voor 2 personen. <span class="version">v2.8</span></p>
+      <p>Gezonde gerechten, standaard voor 2 personen. <span class="version">v3.1</span></p>
     </div>
   </div>
 </header>
@@ -580,6 +580,7 @@
     <span class="chip" data-meal="lunch">Lunch</span>
     <span class="chip" data-meal="avondeten">Avondeten</span>
     <span class="chip" data-meal="dessert">Dessert</span>
+    <span class="chip" data-meal="basis">Basis</span>
   </div>
   <div class="filter-group" id="time-filters">
     <span class="chip active" data-time="0">Alle tijden</span>
@@ -628,7 +629,7 @@
         <select id="f-cat"><option value="vegetarisch">Vegetarisch</option><option value="vis">Vis</option></select>
       </label>
       <label class="f-label">Maaltijd
-        <select id="f-meal"><option value="avondeten">Avondeten</option><option value="lunch">Lunch</option><option value="dessert">Dessert</option></select>
+        <select id="f-meal"><option value="avondeten">Avondeten</option><option value="lunch">Lunch</option><option value="dessert">Dessert</option><option value="basis">Basis (smeersel/saus)</option></select>
       </label>
       <label class="f-label">Tijd (min)<input id="f-tijd" type="number" min="1" value="20"></label>
     </div>
@@ -660,7 +661,7 @@
 
 <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
 
-<footer>Receptenbibliotheek GZ &middot; v2.8 &middot; recepten met bronvermelding</footer>
+<footer>Receptenbibliotheek GZ &middot; v3.1 &middot; recepten met bronvermelding</footer>
 
 <script>
 const recepten = [
@@ -919,6 +920,160 @@ const recepten = [
     bestand: "knoflookgambas-gambas-al-ajillo.md",
     bronNaam: "Leuke Recepten, Garnalen in knoflook (gambas al ajillo)",
     bronUrl: "https://www.leukerecepten.nl/recepten/garnalen-in-knoflook-gambas-al-ajillo/"
+  },
+  {
+    id: "thaise-rode-viscurry",
+    titel: "Thaise rode viscurry met kokos",
+    categorie: "vis",
+    maaltijd: "avondeten",
+    personen: 2,
+    tijd: 30,
+    seizoen: "hele jaar",
+    omschrijving: "Romige Thaise curry met kabeljauw, paprika en limoenblad in kokosmelk. Snel doordeweeks, zonder tomaat.",
+    tags: ["Thais", "curry", "snel", "kabeljauw"],
+    moestuin: "",
+    ingredienten: [
+      "1 el zonnebloemolie",
+      "1 tl Thaise rode currypasta",
+      "1 à 2 cm verse gember, fijngehakt of geraspt",
+      "200 ml kokosmelk",
+      "2 tl Thaise vissaus (Nam Pla)",
+      "2 tl oestersaus",
+      "1 tl palmsuiker (gewone suiker kan ook)",
+      "1 rode paprika, in dunne reepjes",
+      "2 limoenblaadjes (djeroek peroet)",
+      "250 g kabeljauwfilet, in blokjes",
+      "1,5 tl limoen- of citroensap",
+      "Zout en peper",
+      "Verse koriander (optioneel)"
+    ],
+    stappen: [
+      "Snijd de kabeljauw in hapklare blokjes en dep droog. Snijd de paprika in dunne reepjes en hak of rasp de gember fijn.",
+      "Vouw de limoenblaadjes dubbel, verwijder steel en dikke nerf en snijd ze in dunne reepjes.",
+      "Verhit de olie in een pan. Bak de currypasta en gember 2 tot 3 minuten al roerend.",
+      "Voeg de kokosmelk toe en laat 3 minuten zachtjes pruttelen.",
+      "Voeg vissaus, oestersaus, suiker, paprika en de helft van de limoenblaadjes toe. Laat 4 minuten koken.",
+      "Leg de blokjes vis voorzichtig in de saus. Dek af en laat 5 tot 6 minuten zachtjes garen; roer niet te veel.",
+      "Breng op smaak met zout, peper en het limoensap. Garneer met de rest van de limoenblaadjes en eventueel koriander.",
+      "Serveer met jasmijnrijst en geroerbakte spinazie of wokgroenten."
+    ],
+    voeding: { kcal: 350, eiwit: 23, kh: 9, vet: 24, herkomst: "indicatie", note: "zonder rijst" },
+    bestand: "thaise-rode-viscurry-met-kokos.md",
+    bronNaam: "De Wereldkeuken Thuis, Thaise rode curry met vis",
+    bronUrl: "https://www.dewereldkeukenthuis.com/thaise-rode-curry-met-vis/"
+  },
+  {
+    id: "kabeljauwpakketjes",
+    titel: "Kabeljauwpakketjes uit de oven",
+    categorie: "vis",
+    maaltijd: "avondeten",
+    personen: 2,
+    tijd: 25,
+    seizoen: "hele jaar",
+    omschrijving: "Kabeljauw met spinazie, rode ui en verse kruiden, gegaard in een pakketje van bakpapier. Gezond, licht en bijna geen afwas.",
+    tags: ["oven", "gezond", "kabeljauw", "en papillote"],
+    moestuin: "spinazie, verse kruiden",
+    ingredienten: [
+      "2 kabeljauwfilets (100 tot 150 g per stuk)",
+      "50 g verse spinazie",
+      "75 g cherrytomaatjes, gehalveerd (kleine hoeveelheid; weglaten kan)",
+      "½ rode ui, in ringen",
+      "2 tenen knoflook, platgeslagen",
+      "2 takjes rozemarijn",
+      "2 takjes tijm",
+      "½ citroen, in plakjes",
+      "Olijfolie",
+      "Peper en zout",
+      "2 vellen bakpapier"
+    ],
+    stappen: [
+      "Verwarm de oven voor op 180 °C (hetelucht).",
+      "Leg op elk vel bakpapier een handje spinazie en daarop een met peper en zout gekruide kabeljauwfilet.",
+      "Verdeel de uiringen en gehalveerde cherrytomaatjes over de vis.",
+      "Voeg per pakketje een knoflookteen, een takje rozemarijn en een takje tijm toe. Leg een plakje citroen bovenop en besprenkel met olijfolie.",
+      "Vouw het bakpapier dicht tot een gesloten pakketje.",
+      "Gaar de pakketjes 15 tot 20 minuten in de oven, tot de vis wit en net gaar is.",
+      "Serveer direct in het pakketje, met een frisse salade, krieltjes of brood."
+    ],
+    voeding: { kcal: 220, eiwit: 24, kh: 5, vet: 11, herkomst: "indicatie", note: "zonder bijgerechten" },
+    bestand: "kabeljauwpakketjes-uit-de-oven.md",
+    bronNaam: "Uit Paulines Keuken, Kabeljauw pakketje uit de oven",
+    bronUrl: "https://uitpaulineskeuken.nl/recept/kabeljauwpakketjes-uit-de-oven"
+  },
+  {
+    id: "pasta-gerookte-zalm-citroen",
+    titel: "Pasta met gerookte zalm en citroenroomsaus",
+    categorie: "vis",
+    maaltijd: "avondeten",
+    personen: 2,
+    tijd: 15,
+    seizoen: "hele jaar",
+    omschrijving: "Snelle, romige pasta met gerookte zalm, frisse citroen, kappertjes en geroosterde pijnboompitten. In een kwartier op tafel.",
+    tags: ["pasta", "snel", "zalm", "romig"],
+    moestuin: "bieslook",
+    ingredienten: [
+      "200 g fusilli of andere pasta",
+      "2 el pijnboompitten",
+      "Olijfolie",
+      "1 ui, fijngesnipperd",
+      "1 teen knoflook, uitgeperst",
+      "Scheut droge witte wijn",
+      "125 ml kookroom",
+      "125 g crème fraîche",
+      "½ biologische citroen, rasp en sap",
+      "Handje geraspte Parmezaanse kaas, plus extra",
+      "75 g gerookte zalm, in stukjes",
+      "1 el kappertjes",
+      "Paar sprietjes bieslook, fijngeknipt",
+      "Zout en peper"
+    ],
+    stappen: [
+      "Breng een ruime pan water met zout aan de kook en kook de pasta volgens de verpakking.",
+      "Rooster de pijnboompitten goudbruin in een droge koekenpan en zet apart.",
+      "Verhit een scheut olijfolie en fruit de ui en knoflook zacht. Blus af met een scheut witte wijn.",
+      "Voeg kookroom, crème fraîche, citroensap en -rasp, Parmezaan, zalm en kappertjes toe en warm zachtjes door.",
+      "Breng op smaak met zout en peper.",
+      "Giet de pasta af en roer hem door de saus; voeg eventueel een scheutje kookvocht toe.",
+      "Garneer met extra Parmezaan, bieslook en de pijnboompitten."
+    ],
+    voeding: { kcal: 850, eiwit: 27, kh: 78, vet: 47, herkomst: "indicatie" },
+    bestand: "pasta-met-gerookte-zalm-en-citroenroomsaus.md",
+    bronNaam: "Keukenliefde, Pasta met gerookte zalm en citroenroomsaus",
+    bronUrl: "https://www.keukenliefde.nl/pasta-met-gerookte-zalm-en-citroenroomsaus/"
+  },
+  {
+    id: "forel-met-amandelen",
+    titel: "Forel met amandelen",
+    categorie: "vis",
+    maaltijd: "avondeten",
+    personen: 2,
+    tijd: 20,
+    seizoen: "hele jaar",
+    omschrijving: "Franse klassieker: hele forel in boter gebakken, overgoten met schuimende boter en goudbruine amandelen. Simpel en feestelijk.",
+    tags: ["Frans", "klassieker", "snel", "forel"],
+    moestuin: "",
+    ingredienten: [
+      "2 hele forellen, schoongemaakt",
+      "Bloem, om de vis door te halen",
+      "50 g roomboter",
+      "75 g geschaafde amandelen",
+      "½ citroen, in parten",
+      "Zout"
+    ],
+    stappen: [
+      "Spoel de forellen schoon, dep droog en bestrooi goed met zout.",
+      "Haal de forellen door de bloem en klop het teveel eraf.",
+      "Verhit de helft van de boter in een grote koekenpan tot hij bruist.",
+      "Bak de forellen 4 minuten op vrij hoog vuur, draai om en bak nog 4 minuten tot ze gaar zijn.",
+      "Rooster intussen de amandelen goudbruin in een droge koekenpan.",
+      "Haal de vis uit de pan en houd warm. Voeg de amandelen en de rest van de boter toe en verhit tot de boter schuimt.",
+      "Giet de schuimende amandelboter over de forellen en serveer met citroenparten.",
+      "Lekker met krieltjes of geplette aardappelen en haricots verts."
+    ],
+    voeding: { kcal: 600, eiwit: 38, kh: 5, vet: 48, herkomst: "indicatie", note: "zonder bijgerechten" },
+    bestand: "forel-met-amandelen.md",
+    bronNaam: "Onno Kleyn, Recept forel met amandelen",
+    bronUrl: "https://www.onnokleyn.nl/recept-forel-met-amandelen/"
   },
   {
     id: "avocado-ei-toast",
@@ -1343,6 +1498,204 @@ const recepten = [
     bestand: "broodje-tonijnsalade.md",
     bronNaam: "Lekker en Simpel, Broodje tonijnsalade",
     bronUrl: "https://www.lekkerensimpel.com/broodje-tonijnsalade/"
+  },
+  {
+    id: "broodje-eiersalade",
+    titel: "Broodje eiersalade",
+    categorie: "vegetarisch",
+    maaltijd: "lunch",
+    personen: 2,
+    tijd: 30,
+    seizoen: "hele jaar",
+    omschrijving: "Romige zelfgemaakte eiersalade met bieslook, Dijonmosterd en een vleugje kerrie, op vers brood of toast. Met Griekse yoghurt, dus lichter dan met alleen mayonaise.",
+    tags: ["brood", "eieren", "klassieker"],
+    moestuin: "bieslook",
+    ingredienten: [
+      "Voor de eiersalade:",
+      "5 eieren",
+      "2 el mayonaise",
+      "2 el Griekse yoghurt",
+      "1 tl Dijonmosterd",
+      "2 el verse bieslook, fijngehakt, plus extra",
+      "½ tl kerriepoeder",
+      "Zout en peper naar smaak",
+      "Voor erbij:",
+      "2 verse broodjes of 4 sneetjes (geroosterd) brood",
+      "Eventueel wat slablaadjes"
+    ],
+    stappen: [
+      "Prik elk ei aan de onderkant in, zodat ze niet barsten. Kook ze in ongeveer 8 minuten hard.",
+      "Spoel de eieren af onder koud water, laat volledig afkoelen en pel ze.",
+      "Prak de eieren met een vork in kleine stukjes; niet te fijn, dan blijft er beet in.",
+      "Meng de mayonaise, yoghurt, mosterd, bieslook en het kerriepoeder in een kom.",
+      "Spatel de eistukjes er voorzichtig door en breng op smaak met zout en peper.",
+      "Verdeel over de broodjes of toast, eventueel op een slablaadje, en bestrooi met extra bieslook."
+    ],
+    voeding: { kcal: 480, eiwit: 23, kh: 32, vet: 26, herkomst: "indicatie", note: "inclusief broodje" },
+    bestand: "broodje-eiersalade.md",
+    bronNaam: "Rutger bakt, Eiersalade maken",
+    bronUrl: "https://rutgerbakt.nl/basisrecepten/eiersalade-maken-recept/"
+  },
+  {
+    id: "gozleme-spinazie-feta",
+    titel: "Gözleme met spinazie en feta",
+    categorie: "vegetarisch",
+    maaltijd: "lunch",
+    personen: 2,
+    tijd: 60,
+    seizoen: "hele jaar",
+    omschrijving: "Turks gevuld platbrood met spinazie, feta en gesmolten mozzarella, krokant gebakken in de pan. Stevige warme lunch; het deeg hoeft niet te rijzen.",
+    tags: ["Turks", "platbrood", "warm"],
+    moestuin: "spinazie",
+    ingredienten: [
+      "Voor het deeg:",
+      "190 g bloem",
+      "45 ml extra vierge olijfolie",
+      "90 ml water",
+      "¼ tl zout",
+      "Voor de vulling:",
+      "150 g jonge bladspinazie",
+      "1 teen knoflook, fijngehakt",
+      "1 ei",
+      "½ tl zwarte peper",
+      "150 g zachte feta",
+      "100 g geraspte mozzarella",
+      "Voor het bakken:",
+      "1 à 1,5 el olijfolie per gözleme",
+      "Citroenpartjes (optioneel)"
+    ],
+    stappen: [
+      "Meng bloem, olijfolie, zout en water tot een glad, zacht deeg. Dek af en laat 20 minuten rusten.",
+      "Knijp voor de vulling de spinazie met knoflook, ei en peper met je handen door elkaar tot de spinazie slinkt. Roer de feta erdoor.",
+      "Verdeel het deeg in 2 stukken en rol elk dun uit tot circa 35 x 20 cm.",
+      "Verdeel de vulling over één helft van elke deeglap en strooi de mozzarella erover.",
+      "Vouw de andere helft eroverheen en druk de randen goed aan; met wat water plakt het beter.",
+      "Bak de gözleme in olie circa 3 minuten per kant, licht aandrukkend, tot goudbruin en knapperig.",
+      "Snijd in stukken en serveer direct, eventueel met citroen."
+    ],
+    voeding: { kcal: 845, eiwit: 36, kh: 67, vet: 47, herkomst: "bron", note: "per gözleme" },
+    bestand: "gozleme-met-spinazie-en-feta.md",
+    bronNaam: "RecipeTin Eats, Gozleme",
+    bronUrl: "https://www.recipetineats.com/gozleme/"
+  },
+  {
+    id: "toast-champignons",
+    titel: "Toast met gebakken champignons en kaas",
+    categorie: "vegetarisch",
+    maaltijd: "lunch",
+    personen: 2,
+    tijd: 20,
+    seizoen: "hele jaar",
+    omschrijving: "Knapperige toastjes van stokbrood met knoflookboter, goudbruin gebakken champignons en gesmolten kaas uit de oven.",
+    tags: ["brood", "champignons", "snel"],
+    moestuin: "verse peterselie",
+    ingredienten: [
+      "400 g champignons",
+      "3 tenen knoflook",
+      "30 g geraspte kaas",
+      "½ stokbrood",
+      "Boter en olijfolie",
+      "Zout en peper naar smaak"
+    ],
+    stappen: [
+      "Verwarm de oven voor op 180 °C en snijd het stokbrood in plakken.",
+      "Smelt een klontje boter en pers er 1 teen knoflook in.",
+      "Bestrijk de plakken brood met de knoflookboter en rooster ze 7 tot 10 minuten in de oven.",
+      "Bak intussen de champignonplakjes 5 minuten in olijfolie op hoog vuur; een goed hete pan laat het vocht snel verdampen. Breng op smaak met zout en peper.",
+      "Pers de rest van de knoflook erbij en bak nog 5 minuten op laag vuur.",
+      "Verdeel de champignons over de toastjes, bestrooi met kaas en zet kort onder de grill tot de kaas smelt; blijf erbij."
+    ],
+    voeding: { kcal: 400, eiwit: 12, kh: 35, vet: 24, herkomst: "indicatie" },
+    bestand: "toast-met-gebakken-champignons.md",
+    bronNaam: "Burgertrutjes, Gebakken champignons op toast",
+    bronUrl: "https://www.burgertrutjes.nl/gebakken-champignons/"
+  },
+  {
+    id: "krokante-visburger",
+    titel: "Krokante visburger",
+    categorie: "vis",
+    maaltijd: "lunch",
+    personen: 2,
+    tijd: 45,
+    seizoen: "hele jaar",
+    omschrijving: "Goudbruin gefrituurde kabeljauw in een krokant pankojasje, op een zacht broodje met zelfgemaakte remoulade, sla en ui. Feestelijke weekendlunch.",
+    tags: ["burger", "weekend", "kabeljauw", "frituur"],
+    moestuin: "bieslook, peterselie, dille",
+    ingredienten: [
+      "Voor de burger:",
+      "440 g kabeljauwfilet (of schelvis), in 2 stukken",
+      "100 g bloem",
+      "2 eieren",
+      "300 g panko (er blijft over)",
+      "2 plakjes cheddar",
+      "1 witte ui, in ringen",
+      "2 slablaadjes",
+      "2 aardappelbroodjes",
+      "Frituurvet (circa 2 liter)",
+      "Zout",
+      "Voor de remouladesaus:",
+      "100 g Griekse yoghurt",
+      "100 g mayonaise",
+      "2 augurken, fijngesneden",
+      "20 g kappertjes, fijngehakt",
+      "¼ bosje bieslook, ¼ bosje krulpeterselie en ¼ bosje dille",
+      "1 tl mosterd",
+      "2 tl suiker",
+      "1 el olijfolie",
+      "Zout en peper naar smaak"
+    ],
+    stappen: [
+      "Meng voor de remoulade de augurken en kappertjes met yoghurt, mayonaise, kruiden, mosterd, suiker en olijfolie. Breng op smaak en zet koud weg.",
+      "Verhit het frituurvet in een hoge pan tot 175 °C.",
+      "Klop de eieren los en zet bloem en panko elk apart klaar. Snijd de ui in ringen.",
+      "Dep de vis droog, haal door de bloem, dan door het ei en bedek rondom met panko.",
+      "Frituur de vis 4 tot 7 minuten goudbruin. Laat uitlekken op keukenpapier en leg direct een plakje cheddar op de warme vis.",
+      "Besmeer de opengesneden broodjes royaal met remoulade, beleg met sla en ui en leg de vis erop."
+    ],
+    voeding: { kcal: 2059, eiwit: 87, kh: 222, vet: 94, herkomst: "bron", note: "bron rekent alle panko, bloem en frituurvet mee; werkelijke opname lager" },
+    bestand: "krokante-visburger.md",
+    bronNaam: "BURNHARD, Krokante visburger",
+    bronUrl: "https://www.burnhard.com/nl/recepten/burger/krokante-visburger"
+  },
+  {
+    id: "quesadilla-kaas-bonen",
+    titel: "Quesadilla met kaas en bonen",
+    categorie: "vegetarisch",
+    maaltijd: "lunch",
+    personen: 2,
+    tijd: 20,
+    seizoen: "hele jaar",
+    omschrijving: "Krokante tortilla's met gekruide bonenpuree, gesmolten kaas en bosui, geserveerd met guacamole en zure room. Zonder de tomatensalsa uit de bron.",
+    tags: ["Mexicaans", "wraps", "snel"],
+    moestuin: "bosui",
+    ingredienten: [
+      "Voor de quesadilla's:",
+      "4 grote tortillawraps",
+      "135 g geraspte jong belegen kaas",
+      "1 à 2 bosuitjes, fijngesneden",
+      "Zonnebloem- of olijfolie om te bakken",
+      "85 g zure room, om te serveren",
+      "Voor de bonenpuree:",
+      "135 g pinto- of zwarte bonen uit blik, afgespoeld",
+      "Snufje komijnpoeder en snufje cayennepeper",
+      "1 teen knoflook",
+      "Sap van ½ à 1 limoen",
+      "Scheut extra vierge olijfolie",
+      "Voor de guacamole:",
+      "1 eetrijpe avocado",
+      "Citroensap"
+    ],
+    stappen: [
+      "Mix alle ingrediënten voor de bonenpuree in een keukenmachine tot een gladde pasta.",
+      "Besmeer 2 wraps met de bonenpuree, bestrooi met bosui en kaas en dek af met de andere 2 wraps.",
+      "Bak de quesadilla's in een beetje olie aan beide kanten goudbruin en krokant, tot de kaas gesmolten is.",
+      "Prak de avocado fijn met wat citroensap voor de guacamole.",
+      "Snijd de quesadilla's in vieren en serveer met guacamole en zure room."
+    ],
+    voeding: { kcal: 850, eiwit: 28, kh: 82, vet: 42, herkomst: "indicatie", note: "inclusief guacamole en zure room" },
+    bestand: "quesadilla-met-kaas-en-bonen.md",
+    bronNaam: "Keukenliefde, Quesadilla met kaas en bonen",
+    bronUrl: "https://www.keukenliefde.nl/recepten/quesadilla-met-kaas-en-bonen/"
   },
   {
     id: "spaghetti-citroen-ricotta",
@@ -1770,6 +2123,191 @@ const recepten = [
     bestand: "gegrilde-perzik-met-honing-en-ijs.md",
     bronNaam: "Leuke Recepten, Gegrilde perziken met ijs",
     bronUrl: "https://www.leukerecepten.nl/recepten/gegrilde-perziken-met-ijs/"
+  },
+  {
+    id: "zeezoutboter",
+    titel: "Zeezoutboter (luchtig opgeklopt)",
+    categorie: "vegetarisch",
+    maaltijd: "basis",
+    personen: 4,
+    tijd: 5,
+    seizoen: "hele jaar",
+    omschrijving: "Restaurantklassieker: roomboter luchtig wit geklopt met zeezoutvlokken. Heerlijk bij vers brood en de basis voor eindeloos variëren.",
+    tags: ["smeersel", "boter", "snel", "borrel"],
+    moestuin: "",
+    ingredienten: [
+      "250 g ongezouten roomboter",
+      "Zeezoutvlokken naar smaak (bijvoorbeeld fleur de sel of Maldon)",
+      "Eventueel wat peper uit de molen"
+    ],
+    stappen: [
+      "Breng de roomboter op kamertemperatuur, of verwarm hem enkele seconden in de magnetron.",
+      "Klop de boter enkele minuten met een handmixer of keukenmachine tot hij bijna wit en luchtig is.",
+      "Voeg zeezoutvlokken naar smaak toe, eventueel met wat peper, en klop kort door.",
+      "Schep in een schaaltje en serveer op kamertemperatuur met brood. Chique: spuit toefjes met een spuitzak.",
+      "Variaties: knoflook, kruiden, citroenrasp, chilipeper of mosterd."
+    ],
+    voeding: { kcal: 450, eiwit: 0, kh: 0, vet: 50, herkomst: "indicatie", note: "per kwart van het schaaltje, zonder brood" },
+    bestand: "zeezoutboter-opgeklopt.md",
+    bronNaam: "Culinea, Luchtig geklopte roomboter",
+    bronUrl: "https://culinea.nl/recepten/luchtig-geklopte-roomboter/"
+  },
+  {
+    id: "kruidenboter",
+    titel: "Kruidenboter",
+    categorie: "vegetarisch",
+    maaltijd: "basis",
+    personen: 8,
+    tijd: 10,
+    seizoen: "hele jaar",
+    omschrijving: "Zelfgemaakte kruidenboter met verse peterselie, bieslook, dille en knoflook. Voor op brood, bij vis of over gegrilde groenten. Opbrengst ± 200 g.",
+    tags: ["smeersel", "boter", "kruiden", "snel"],
+    moestuin: "peterselie, bieslook, dille",
+    ingredienten: [
+      "200 g boter, op kamertemperatuur",
+      "3 à 4 el verse bladpeterselie, fijngehakt",
+      "2 à 3 el verse bieslook, fijngehakt",
+      "1 à 1,5 el verse dille, fijngehakt",
+      "1 à 2 tenen knoflook, fijngehakt of geperst",
+      "¼ tl zout"
+    ],
+    stappen: [
+      "Zorg dat de boter echt op kamertemperatuur is; dan mengt hij het makkelijkst.",
+      "Doe de boter met alle gehakte kruiden, de knoflook en het zout in een mengkom.",
+      "Roer alles goed door elkaar tot de kruiden gelijkmatig verdeeld zijn.",
+      "Tip: rol de boter in bakpapier tot een worst en laat opstijven in de koelkast; dan snijd je er mooie plakjes van, bijvoorbeeld voor op de zalm of zeebaars.",
+      "Bewaren: 4 tot 5 dagen in de koelkast, of 2 tot 3 maanden in de vriezer."
+    ],
+    voeding: { kcal: 185, eiwit: 0, kh: 0, vet: 20, herkomst: "indicatie", note: "per portie van 25 g" },
+    bestand: "kruidenboter.md",
+    bronNaam: "Rutger bakt, Kruidenboter maken",
+    bronUrl: "https://rutgerbakt.nl/basisrecepten/kruidenboter/"
+  },
+  {
+    id: "hummus",
+    titel: "Hummus (basisrecept)",
+    categorie: "vegetarisch",
+    maaltijd: "basis",
+    personen: 4,
+    tijd: 15,
+    seizoen: "hele jaar",
+    omschrijving: "Klassieke romige hummus van kikkererwten uit blik, tahin, knoflook en citroen. In een kwartier klaar; lekker op brood, bij falafel of als dip.",
+    tags: ["smeersel", "vegan", "dip", "snel"],
+    moestuin: "peterselie (garnering)",
+    ingredienten: [
+      "400 g kikkererwten uit blik, uitgelekt",
+      "8 el tahin (sesampasta)",
+      "2 tenen knoflook",
+      "Sap van 1 citroen",
+      "Snuf komijn",
+      "Zout en peper naar smaak",
+      "Water, naar behoefte",
+      "Garnering (optioneel): hele kikkererwten, scheut olijfolie, gehakte peterselie"
+    ],
+    stappen: [
+      "Doe de kikkererwten met de knoflook, tahin, komijn en het citroensap in een keukenmachine en maal glad.",
+      "Te korrelig? Voeg geleidelijk water toe tot de gewenste dikte. Breng op smaak met zout en peper.",
+      "Schep in een schaaltje en garneer eventueel met hele kikkererwten, olijfolie en peterselie.",
+      "Bewaren: 3 tot 5 dagen in een afgesloten bakje in de koelkast."
+    ],
+    voeding: { kcal: 300, eiwit: 11, kh: 18, vet: 19, herkomst: "indicatie", note: "per kwart van het bakje" },
+    bestand: "hummus-basisrecept.md",
+    bronNaam: "Uit Paulines Keuken, Klassieke hummus",
+    bronUrl: "https://uitpaulineskeuken.nl/recept/klassieke-hummus"
+  },
+  {
+    id: "groene-pesto",
+    titel: "Groene pesto (basisrecept)",
+    categorie: "vegetarisch",
+    maaltijd: "basis",
+    personen: 6,
+    tijd: 15,
+    seizoen: "zomer",
+    omschrijving: "Verse basilicumpesto met geroosterde pijnboompitten, Parmezaan en olijfolie. Voor door de pasta, op de tosti of bij vis. Opbrengst 1 klein potje.",
+    tags: ["saus", "Italiaans", "basilicum"],
+    moestuin: "basilicum",
+    ingredienten: [
+      "20 g pijnboompitten",
+      "1 teen knoflook",
+      "25 g verse basilicumblaadjes",
+      "Snuf zout",
+      "35 g Parmezaanse kaas, geraspt",
+      "60 ml olijfolie"
+    ],
+    stappen: [
+      "Rooster de pijnboompitten in een droge koekenpan licht goudbruin en laat afkoelen.",
+      "Hak de knoflook grof en doe hem met de basilicum, pijnboompitten en het zout in een vijzel of keukenmachine.",
+      "Wrijf of maal alles fijn tot een glad mengsel.",
+      "Voeg de Parmezaan toe en meng kort door.",
+      "Voeg de olijfolie toe en wrijf tot een smeuïge pesto.",
+      "Bewaren: 5 tot 7 dagen in de koelkast met een laagje olijfolie erop, of 2 tot 3 maanden ingevroren in een ijsblokjesvorm."
+    ],
+    voeding: { kcal: 120, eiwit: 3, kh: 1, vet: 12, herkomst: "indicatie", note: "per eetlepel van 20 g" },
+    bestand: "groene-pesto-basisrecept.md",
+    bronNaam: "Rutger bakt, Pesto maken",
+    bronUrl: "https://rutgerbakt.nl/basisrecepten/pesto/"
+  },
+  {
+    id: "aioli",
+    titel: "Aioli (basisrecept)",
+    categorie: "vegetarisch",
+    maaltijd: "basis",
+    personen: 8,
+    tijd: 15,
+    seizoen: "hele jaar",
+    omschrijving: "Zelfgemaakte knoflookmayonaise met de staafmixer: in een minuut dik en romig. Lekker bij de gamba's, de visburger of met brood. Let op: rauw ei, 3 tot 5 dagen houdbaar.",
+    tags: ["saus", "knoflook", "rauw ei", "borrel"],
+    moestuin: "",
+    ingredienten: [
+      "2 grote tenen knoflook",
+      "¼ tl zout",
+      "1 el citroensap",
+      "1 vers ei",
+      "250 ml zonnebloemolie"
+    ],
+    stappen: [
+      "Zorg dat alle ingrediënten op kamertemperatuur zijn.",
+      "Hak de knoflook grof en wrijf hem met het zout in een vijzel tot een gladde pasta.",
+      "Doe de knoflookpasta, het citroensap en het ei in een hoge mengbeker en zet de staafmixer erin. Giet de olie er voorzichtig op.",
+      "Zet de staafmixer aan op de bodem en beweeg langzaam omhoog, in een halve tot hele minuut, tot een dikke aioli.",
+      "Breng op smaak met extra zout of citroensap en laat minimaal 3 uur afgedekt in de koelkast staan.",
+      "Bevat rauw ei: gekoeld bewaren, binnen 3 tot 5 dagen opmaken en scheppen met een schone lepel."
+    ],
+    voeding: { kcal: 100, eiwit: 0, kh: 0, vet: 11, herkomst: "indicatie", note: "per eetlepel van 15 g" },
+    bestand: "aioli-basisrecept.md",
+    bronNaam: "Rutger bakt, Zelf aioli maken",
+    bronUrl: "https://rutgerbakt.nl/basisrecepten/aioli-maken/"
+  },
+  {
+    id: "tzatziki",
+    titel: "Tzatziki",
+    categorie: "vegetarisch",
+    maaltijd: "basis",
+    personen: 4,
+    tijd: 10,
+    seizoen: "zomer",
+    omschrijving: "Frisse Griekse dip van dikke yoghurt, komkommer, knoflook en dille. Het geheim: de komkommer goed laten uitlekken.",
+    tags: ["saus", "Grieks", "dip", "snel"],
+    moestuin: "komkommer, dille",
+    ingredienten: [
+      "250 g Griekse yoghurt (echte, dikke Griekse yoghurt)",
+      "¼ komkommer",
+      "2 tenen knoflook",
+      "2 à 3 takjes verse dille",
+      "Scheutje olijfolie",
+      "Peper en zout"
+    ],
+    stappen: [
+      "Was de komkommer en verwijder de zaadlijsten. Rasp hem, bestrooi met zout en laat uitlekken in een vergiet. Knijp daarna goed uit.",
+      "Hak de knoflook en dille fijn en roer ze door de yoghurt.",
+      "Voeg de uitgelekte komkommer en een scheutje olijfolie toe. Meng goed en breng op smaak met peper en zout.",
+      "Serveer met vers pitabrood of als dip; nog lekkerder na een uurtje koelkast.",
+      "Past mooi bij de pitabroodjes met falafel en de gözleme uit de bibliotheek."
+    ],
+    voeding: { kcal: 85, eiwit: 3, kh: 2, vet: 7, herkomst: "indicatie", note: "per kwart van het bakje" },
+    bestand: "tzatziki.md",
+    bronNaam: "Uit Paulines Keuken, Tzatziki",
+    bronUrl: "https://uitpaulineskeuken.nl/recept/griekse-tzatziki"
   }
 ];
 
